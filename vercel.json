@@ -6,8 +6,9 @@
     },
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/css/(.*)", 
             "dest": "/api/index.php"
+            
         }
     ],
     "env": {
