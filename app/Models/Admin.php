@@ -11,6 +11,6 @@ class Admin extends Authenticatable
 
     protected $table = 'admins'; // Nama tabel di database
 
-    protected $fillable = ['nama', 'posisi', 'telepon', 'email', 'jam_kerja'];
+    protected $fillable = ['nama', 'posisi', 'telepon', 'email', 'jam_kerja', 'Alamat'];
 
 }

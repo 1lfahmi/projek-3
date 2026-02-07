@@ -3,31 +3,33 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Mobil; // Sesuaikan dengan nama model mobil kamu
+use App\Models\Mobil;
 
 class MobilSeeder extends Seeder
 {
     public function run(): void
     {
-        // Data dari phpMyAdmin kamu
         Mobil::create([
-            'nama_mobil' => 'porcshe',
-            'merek' => 'mitsubisi',
-            'harga' => 230,
+            'seri' => 'SR-001',
+            'nama_mobil' => 'Porsche',
+            'merek' => 'Mitsubishi',
+            'harga' => 230000000,
             'stok' => 56,
         ]);
 
         Mobil::create([
-            'nama_mobil' => 'dogma',
-            'merek' => 'honda',
-            'harga' => 124,
+            'seri' => 'SR-002',
+            'nama_mobil' => 'Dogma',
+            'merek' => 'Honda',
+            'harga' => 124000000,
             'stok' => 6,
         ]);
 
         Mobil::create([
-            'nama_mobil' => 'ragunan',
-            'merek' => 'sambar',
-            'harga' => 234,
+            'seri' => 'SR-003',
+            'nama_mobil' => 'Ragunan',
+            'merek' => 'Sambar',
+            'harga' => 234000000,
             'stok' => 3,
         ]);
     }

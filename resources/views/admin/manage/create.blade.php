@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { 
-            /* Memanggil gambar dari folder public/images/ */
             background-image: url('/images/lod.jpg'); 
             background-size: cover;
             background-position: center;
@@ -17,12 +16,11 @@
             min-height: 100vh;
         }
 
-        /* Overlay gelap tipis agar gambar background tidak terlalu mencolok */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Gelapkan 30% */
+            background: rgba(0, 0, 0, 0.3); 
             z-index: -1;
         }
 
@@ -32,8 +30,8 @@
         }
 
         .card-form { 
-            background: rgba(255, 255, 255, 0.9); /* Putih transparan 90% */
-            backdrop-filter: blur(10px); /* Efek blur kaca */
+            background: rgba(255, 255, 255, 0.9); 
+            backdrop-filter: blur(10px); 
             border-radius: 12px; 
             padding: 30px; 
             box-shadow: 0 8px 32px rgba(0,0,0,0.2); 
@@ -82,6 +80,10 @@
                     <label class="form-label fw-bold">Jam Kerja</label>
                     <input type="text" name="jam_kerja" class="form-control" placeholder="08:00 - 17:00" required>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Alamat</label>
+                    <input type="text" name="Alamat" class="form-control" placeholder="Masukkan alamat lengkap" required>
+                </div>
             </div>
             <hr>
             <div class="text-end">
@@ -90,15 +92,16 @@
                 </button>
             </div>
         </form>
+
         @if ($errors->any())
-    <div class="alert alert-danger shadow-sm">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="alert alert-danger shadow-sm mt-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
 </div>
 </body>

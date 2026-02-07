@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('pembelians', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama');    // Ini yang bikin error tadi!
-        $table->string('email');
-        $table->string('telepon');
-        $table->string('kota');
-        $table->text('alamat');
-        $table->timestamps();
-    });
+        Schema::create('pembelians', function (Blueprint $table) {
+    $table->id();
+    $table->string('nama');
+    $table->string('email');
+    $table->string('no_telepon'); // 🔥 GANTI INI
+    $table->string('kota');
+    $table->text('alamat');
+    $table->string('nama_mobil'); // 🔥 WAJIB ADA
+    $table->timestamps();
+});
+
 }
     
 

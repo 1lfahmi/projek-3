@@ -1,165 +1,139 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Login Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            background: linear-gradient(135deg, #1d3557, #457b9d);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .motion-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -4;
-  background:
-      radial-gradient(circle at 20% 30%, rgba(0, 0, 255, 0.35), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(0, 150, 255, 0.25), transparent 45%),
-      linear-gradient(120deg, #020024, #000428, #004e92);
-  animation: gradientMove 20s ease-in-out infinite alternate;
+<style>
+/* ===== BACKGROUND ===== */
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top, #0f0f0f, #000);
+    overflow:hidden;
+    font-family: system-ui, sans-serif;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%, 100% 50%, 0% 50%; }
-  100% { background-position: 100% 50%, 0% 50%, 100% 50%; }
+/* ===== PARTICLES ===== */
+.particles span{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:rgba(255,255,255,.6);
+    border-radius:50%;
+    animation: float 16s linear infinite;
+}
+@keyframes float{
+    from{ transform:translateY(110vh); opacity:0 }
+    20%{ opacity:1 }
+    to{ transform:translateY(-10vh); opacity:0 }
 }
 
-/* ============ BACKGROUND IMAGE ============ */
-#Animated-Image {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -5;
-  filter: brightness(40%) blur(1px);
-  animation: slowZoom 30s ease-in-out infinite alternate;
+/* ===== CARD ===== */
+.login-card{
+    width:100%;
+    max-width:240px;
+    padding:22px 18px 24px;
+    border-radius:30px;
+    background:rgba(255,255,255,.13);
+    backdrop-filter: blur(16px);
+    box-shadow:0 20px 40px rgba(0,0,0,.7);
+    animation: enter 0.9s ease forwards;
+    z-index:2;
+}
+@keyframes enter{
+    from{
+        opacity:0;
+        transform:translateX(-40px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) scale(1);
+    }
 }
 
-@keyframes slowZoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
+/* ===== TITLE ===== */
+.login-title{
+    font-size:15px;
+    font-weight:700;
+    color:#fff;
+    letter-spacing:.6px;
 }
 
-/* ============ NAVBAR ============ */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 12px 25px;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10;
+/* ===== INPUT ===== */
+.form-control{
+    border-radius:999px;
+    height:30px;
+    padding:4px 12px;
+    font-size:11px;
+    background:rgba(255,255,255,.92);
+    border:none;
+    text-align:center;
+    transition:.25s;
+}
+.form-control:focus{
+    box-shadow:0 0 0 2px rgba(255,255,255,.4);
+    transform:scale(1.03);
 }
 
-.navbar-links {
-  display: flex;
-  list-style: none;
-  gap: 20px;
+/* ===== BUTTON ===== */
+.btn-login{
+    display:block;
+    margin:4px auto 0;
+    width:110px;
+    height:30px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    background:#fff;
+    color:#000;
+    position:relative;
+    overflow:hidden;
+    transition:.3s;
+    animation: pulse 2.5s infinite;
+}
+@keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(255,255,255,.4) }
+    70%{ box-shadow:0 0 0 10px rgba(255,255,255,0) }
+    100%{ box-shadow:0 0 0 0 rgba(255,255,255,0) }
+}
+.btn-login:hover{
+    transform:scale(1.08);
+    background:#ededed;
 }
 
-.navbar-links a {
-  color: white;
-  text-decoration: none;
+/* ===== LINK ===== */
+a{
+    font-size:10px;
+    color:#ddd;
+    text-decoration:none;
 }
-
-/* ============ LINE ANIMATION ============ */
-.lines {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  display: flex;
-  justify-content: space-around;
-}
-
-.line {
-  width: 3px;
-  height: 120px;
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgba(0, 150, 255, 0.9),
-      transparent
-  );
-  animation: fall 6s linear infinite;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 10px rgba(0,150,255,0.8));
-}
-
-/* Variasi */
-.line:nth-child(1) { animation-duration: 4s; }
-.line:nth-child(2) { animation-duration: 6s; height: 180px; }
-.line:nth-child(3) { animation-duration: 5s; }
-.line:nth-child(4) { animation-duration: 7s; height: 220px; }
-.line:nth-child(5) { animation-duration: 3.5s; }
-.line:nth-child(6) { animation-duration: 6.5s; height: 160px; }
-.line:nth-child(7) { animation-duration: 4.5s; }
-.line:nth-child(8) { animation-duration: 7.5s; height: 200px; }
-
-@keyframes fall {
-  0% {
-      transform: translateY(-150%);
-      opacity: 0;
-  }
-  20% {
-      opacity: 1;
-  }
-  100% {
-      transform: translateY(120vh);
-      opacity: 0;
-  }
-}
-
-        .login-card {
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 15px;
-            background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .login-title {
-            font-weight: bold;
-            color: #1d3557;
-        }
-        .btn-login {
-            background-color: #1d3557;
-            color: white;
-        }
-        .btn-login:hover {
-            background-color: #16324f;
-        }
-    </style>
+a:hover{ text-decoration:underline }
+</style>
 </head>
 <body>
 
-<div class="lines">
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
+<!-- PARTICLES -->
+<div class="particles">
+    <span style="left:12%"></span>
+    <span style="left:28%"></span>
+    <span style="left:44%"></span>
+    <span style="left:60%"></span>
+    <span style="left:76%"></span>
+    <span style="left:90%"></span>
 </div>
 
-<div class="login-card">
-    <h3 class="text-center login-title mb-4">🔐 Admin Login</h3>
+<!-- LOGIN CARD -->
+<div class="login-card text-center">
+    <div class="login-title mb-3">ADMIN LOGIN</div>
 
     @if(session('error'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger py-1 small">
             {{ session('error') }}
         </div>
     @endif
@@ -167,21 +141,23 @@
     <form method="POST" action="{{ route('admin.login.submit') }}">
         @csrf
 
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Masukkan email" required>
+        <div class="mb-2">
+            <input type="email" name="email" class="form-control"
+                   placeholder="email admin" required>
         </div>
 
         <div class="mb-3">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+            <input type="password" name="password" class="form-control"
+                   placeholder="kata sandi" required>
         </div>
 
-        <button type="submit" class="btn btn-login w-100">Login</button>
+        <button class="btn btn-login">
+            LOGIN
+        </button>
     </form>
 
-    <div class="text-center mt-3">
-        <a href="/" class="text-decoration-none">⬅ Kembali ke halaman user</a>
+    <div class="mt-2">
+        <a href="/">kembali ke user</a>
     </div>
 </div>
 

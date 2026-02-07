@@ -9,9 +9,13 @@ class Pembelian extends Model
 {
     use HasFactory;
 
-    // Tambahkan ini jika nama tabel di database kamu adalah 'belis'
-    protected $table = 'pembelians'; 
 
-    // Tambahkan ini agar data bisa disimpan (Mass Assignment)
-    protected $fillable = ['nama', 'email', 'telepon', 'alamat', 'kota'];
+    protected $fillable = [
+        'nama',
+        'email',
+        'no_telepon',
+        'kota',
+        'alamat',
+        'nama_mobil'
+    ];
 }

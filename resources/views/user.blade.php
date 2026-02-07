@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Promosi Mobil - Showroom Kendaraan Terpercaya</title>
-    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 
     <div class="container">
         <header id="beranda">
-            <h1>🚗 Promosi Mobil 2025</h1>
+            <h1>Promosi Mobil 2025</h1>
             <p>Pilihan Terbaik Untuk Kendaraan Impian Anda</p>
         </header>
 
@@ -134,31 +134,36 @@
                 <i class="fab fa-whatsapp"></i> Data akan dikirim via WhatsApp
             </p>
 
-            <form id="userForm">
-                <input type="hidden" id="mobilId" name="mobilId">
-                <input type="hidden" id="mobilNama" name="mobilNama">
-                <input type="hidden" id="mobilHarga" name="mobilHarga">
+        <form id="userForm">
+    <input type="hidden" id="mobilId" name="mobilId">
+    <input type="hidden" id="mobilNama" name="nama_mobil"> <!-- FIX -->
+    <input type="hidden" id="mobilHarga" name="mobilHarga">
 
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" required placeholder="contoh@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Nomor Telepon</label>
-                    <input type="text" name="telepon" required placeholder="08xxxxxxxxxx">
-                </div>
-                <div class="form-group">
-                    <label>Kota</label>
-                    <input type="text" name="kota" required placeholder="Nama kota">
-                </div>
-                <div class="form-group">
-                    <label>Alamat Lengkap</label>
-                    <textarea name="alamat" required placeholder="Masukkan alamat lengkap Anda"></textarea>
-                </div>
+    <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="contoh@email.com">
+    </div>
+
+    <div class="form-group">
+        <label>Nomor Telepon</label>
+        <input type="text" name="no_telepon" required placeholder="08xxxxxxxxxx"> <!-- FIX -->
+    </div>
+
+    <div class="form-group">
+        <label>Kota</label>
+        <input type="text" name="kota" required placeholder="Nama kota">
+    </div>
+
+    <div class="form-group">
+        <label>Alamat Lengkap</label>
+        <textarea name="alamat" required placeholder="Masukkan alamat lengkap Anda"></textarea>
+    </div>
+
 
                 <div class="form-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn">Batal</button>
@@ -189,7 +194,7 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3>🚗 AutoShow</h3>
+                <h3> AutoShow</h3>
                 <p>Penyedia kendaraan premium terpercaya.</p>
                 <div class="social-links">
                     <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
@@ -209,18 +214,18 @@
                 <h4>Hubungi Kami</h4>
                 <ul>
                     <li>📞 +62 851 9116 3819</li>
-                    <li>📧 info@autoshow.com</li>
+                    <li>📧 muhammadilham@gmail.com</li>
                     <li>📍 Jakarta, Indonesia</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 AutoShow. All rights reserved.</p>
+            <p>&copy;  2025 AutoShow. All rights reserved.</p>
+            <p>@.Developing by muhammad ilham habiballah</p>
         </div>
     </footer>
 
     <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/whatsapp-integration.js') }}"></script>
 
 </body>
 </html>

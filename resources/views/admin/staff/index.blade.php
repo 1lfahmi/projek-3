@@ -22,7 +22,7 @@
                         <th>Posisi</th>
                         <th>Telepon</th>
                         <th>Email</th>
-                        <th class="text-center">Aksi</th>
+                        <th>Alamat</th> <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                         <td><span class="badge bg-info text-dark">{{ $admin->posisi }}</span></td>
                         <td>{{ $admin->telepon }}</td>
                         <td>{{ $admin->email }}</td>
-                        <td class="text-center">
+                        <td>{{ $admin->Alamat }}</td> <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
                                 <a href="{{ route('manage-admin.edit', $admin->id) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit text-white"></i>
@@ -50,7 +50,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table>                
         </div>
     </div>
 </div>

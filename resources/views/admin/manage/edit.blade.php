@@ -21,6 +21,7 @@
         <form action="{{ route('manage-admin.update', $admin->id) }}" method="POST">
             @csrf
             @method('PUT')
+            
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Nama Lengkap</label>
@@ -31,6 +32,7 @@
                     <input type="text" name="posisi" class="form-control" value="{{ $admin->posisi }}" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Nomor Telepon</label>
@@ -41,12 +43,18 @@
                     <input type="email" name="email" class="form-control" value="{{ $admin->email }}" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Jam Kerja</label>
                     <input type="text" name="jam_kerja" class="form-control" value="{{ $admin->jam_kerja }}" required>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Alamat</label>
+                    <input type="text" name="Alamat" class="form-control" value="{{ $admin->Alamat }}" required placeholder="Masukkan alamat lengkap">
+                </div>
             </div>
+
             <hr>
             <button type="submit" class="btn btn-warning px-5 py-2 shadow-sm fw-bold">Perbarui Data</button>
         </form>
