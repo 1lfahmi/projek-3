@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
-use App\Http\Controllers\pembelianController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManageAdminController;
@@ -14,7 +14,7 @@ Route::get('/', function () {
     $mobils = \App\Models\Mobil::all();
     return view('user', compact('mobils'));
 });
-Route::post('/beli-mobil', [pembelianController::class, 'store'])->name('pembelian.store');
+Route::post('/beli-mobil', [PembelianController::class, 'store'])->name('pembelian.store');
 
 
 Route::get('/admin/pembelian/{id}/edit', [PembelianController::class, 'edit'])->name('beli.edit');
@@ -37,9 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('manage-admin', ManageAdminController::class);
 
     // Data Pembelian
-    Route::get('/admin/pembelian', [pembelianController::class, 'index'])->name('admin.pembelian');
+    Route::get('/admin/pembelian', [PembelianController::class, 'index'])->name('admin.pembelian');
     
     // INI YANG DIPERBAIKI: Namanya diganti jadi beli.destroy agar cocok dengan file blade
-    Route::delete('/admin/pembelian/{id}', [pembelianController::class, 'destroy'])->name('beli.destroy');
+    Route::delete('/admin/pembelian/{id}', [PembelianController::class, 'destroy'])->name('beli.destroy');
 
 });

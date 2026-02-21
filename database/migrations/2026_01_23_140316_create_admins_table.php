@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('telepon');
             $table->string('email');
             $table->string('jam_kerja');
+            $table->string('Alamat')->nullable();
             $table->timestamps();
         });
     }

@@ -161,5 +161,64 @@ a:hover{ text-decoration:underline }
     </div>
 </div>
 
+<div class="animel">
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    <span class="anima"></span>
+    
+  </div>
+
+  <div class="haha">
+    <span class="hah"></span>
+  </div>
+
+
+  <div class="anime">
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+    <span class="anim"></span>
+
 </body>
 </html>
