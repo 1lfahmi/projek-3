@@ -214,14 +214,14 @@
                 <h4>Hubungi Kami</h4>
                 <ul>
                     <li>📞 +62 851 9116 3819</li>
-                    <li>📧 muhammadilham@gmail.com</li>
+                    <li>📧 falgi516@gmail.com</li>
                     <li>📍 Jakarta, Indonesia</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy;  2025 AutoShow. All rights reserved.</p>
-            <p>@.Developing by muhammad ilham habiballah</p>
+            <p>@.Developing by fahmi al ghifari</p>
         </div>
     </footer>
 
