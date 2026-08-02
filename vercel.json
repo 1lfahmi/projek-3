@@ -33,7 +33,7 @@
         "APP_KEY": "base64:sE5Z9xSzAHsux3PSVd9xhPW+OV1Yl36pQFH2GPm3nHg=",
         "DB_CONNECTION": "mysql",
         "DB_HOST": "dziob0.h.filess.io",
-        "DB_PORT": "6002",
+        "DB_PORT": "61002",
         "DB_DATABASE": "ema_processwin",
         "DB_USERNAME": "ema_processwin",
         "DB_PASSWORD": "abfbe43d1285f338ff9be7cec4200ba16196bd6c",
