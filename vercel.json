@@ -47,6 +47,15 @@
 
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+        "FILESYSTEM_DISK": "s3",
+
+        "AWS_ACCESS_KEY_ID": "",
+        "AWS_SECRET_ACCESS_KEY": "",
+        "AWS_DEFAULT_REGION": "",
+        "AWS_BUCKET": "",
+        "AWS_URL": "",
+        "AWS_ENDPOINT": "",
+        "AWS_USE_PATH_STYLE_ENDPOINT": "false"
     }
 }

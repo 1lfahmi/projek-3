@@ -34,11 +34,11 @@ class MobilController extends Controller
         ]);
 
         $data = $request->all();
+        $disk = env('FILESYSTEM_DISK', 'local');
 
         // Logika Upload Foto
         if ($request->hasFile('foto')) {
-            // Simpan foto ke folder storage/app/public/mobil
-            $data['foto'] = $request->file('foto')->store('mobil', 'public');
+            $data['foto'] = $request->file('foto')->store('mobil', $disk);
         }
 
         Mobil::create($data);
@@ -70,12 +70,13 @@ class MobilController extends Controller
 
         // Logika Update Foto
         if ($request->hasFile('foto')) {
+            $disk = env('FILESYSTEM_DISK', 'local');
             // Hapus foto lama dari storage agar tidak memenuhi memori
             if ($mobil->foto) {
-                Storage::disk('public')->delete($mobil->foto);
+                Storage::disk($disk)->delete($mobil->foto);
             }
             // Simpan foto baru
-            $data['foto'] = $request->file('foto')->store('mobil', 'public');
+            $data['foto'] = $request->file('foto')->store('mobil', $disk);
         }
 
         $mobil->update($data);
@@ -90,7 +91,8 @@ class MobilController extends Controller
         
         // Hapus foto dari storage saat data dihapus
         if ($mobil->foto) {
-            Storage::disk('public')->delete($mobil->foto);
+            $disk = env('FILESYSTEM_DISK', 'local');
+            Storage::disk($disk)->delete($mobil->foto);
         }
 
         $mobil->delete(); 
