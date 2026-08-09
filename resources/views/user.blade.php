@@ -42,7 +42,7 @@
                 @foreach($mobils as $m)
                 <div class="mobil-card">
                     <div class="mobil-info">
-                        <img src="{{ asset('storage/' . $m->foto) }}" alt="{{ $m->nama_mobil }}">
+                        <img src="{{ Storage::url($m->foto) }}" alt="{{ $m->nama_mobil }}">
                     </div>
 
                     <div class="mobil-detail">

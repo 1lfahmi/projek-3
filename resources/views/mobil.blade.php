@@ -31,7 +31,7 @@
                     <tr>
                         <td>
                             @if($m->foto)
-                                <img src="{{ asset('storage/' . $m->foto) }}" width="70" class="rounded shadow-sm">
+                                <img src="{{ Storage::url($m->foto) }}" width="70" class="rounded shadow-sm">
                             @else
                                 <div class="bg-light d-flex align-items-center justify-content-center rounded" style="width:70px; height:50px;">
                                     <small class="text-muted">No Pic</small>
