@@ -16,7 +16,7 @@
         <div class="nav-container">
             <div class="nav-logo" onclick="scrollToSection('beranda')">
                 <div class="logo-text">
-                    <span class="logo-title">AutoShow</span>
+                    <span class="logo-title">3R Motor</span>
                     <span class="logo-subtitle">Premium Vehicles</span>
                 </div>
             </div>
@@ -42,7 +42,11 @@
                 @foreach($mobils as $m)
                 <div class="mobil-card">
                     <div class="mobil-info">
-                        <img src="{{ Storage::url($m->foto) }}" alt="{{ $m->nama_mobil }}">
+                            @if($m->foto && Illuminate\Support\Facades\Storage::exists($m->foto))
+                                <img src="{{ Storage::url($m->foto) }}" alt="{{ $m->nama_mobil }}">
+                            @else
+                                <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image">
+                            @endif
                     </div>
 
                     <div class="mobil-detail">
@@ -93,8 +97,8 @@
             <h2 class="section-title">ℹ️ Tentang Kami</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>AutoShow - Solusi Kendaraan Premium Anda</h3>
-                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, AutoShow berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
+                    <h3>3R Motor - Solusi Kendaraan Premium Anda</h3>
+                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, 3R Motor berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
                     <div class="about-features">
                         <div class="feature-item">✓ Mobil Original & Bergaransi</div>
                         <div class="feature-item">✓ Cicilan Ringan Hingga 7 Tahun</div>
@@ -119,7 +123,7 @@
                     </div>
                     <div class="contact-item">
                         <h4>📧 Email</h4>
-                        <p>info@autoshow.com</p>
+                        <p>info@3rmotor.com</p>
                     </div>
                 </div>
             </div>
@@ -194,7 +198,7 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3> AutoShow</h3>
+                <h3> 3R Motor</h3>
                 <p>Penyedia kendaraan premium terpercaya.</p>
                 <div class="social-links">
                     <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
@@ -220,7 +224,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy;  2025 AutoShow. All rights reserved.</p>
+            <p>&copy;  2025 3R Motor. All rights reserved.</p>
             <p>@.Developing by fahmi al ghifari</p>
         </div>
     </footer>
