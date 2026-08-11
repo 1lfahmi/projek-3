@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Admin Login</title>
+<title>3R Motor Admin Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,7 +14,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle at top, #0f0f0f, #000);
+    background: radial-gradient(circle at top, #071029, #020617 55%, #000 100%);
     overflow:hidden;
     font-family: system-ui, sans-serif;
 }
@@ -37,14 +37,27 @@ body{
 /* ===== CARD ===== */
 .login-card{
     width:100%;
-    max-width:240px;
-    padding:22px 18px 24px;
-    border-radius:30px;
-    background:rgba(255,255,255,.13);
-    backdrop-filter: blur(16px);
-    box-shadow:0 20px 40px rgba(0,0,0,.7);
+    max-width:320px;
+    padding:28px 24px 28px;
+    border-radius:28px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    box-shadow:0 20px 55px rgba(0,0,0,0.7);
     animation: enter 0.9s ease forwards;
     z-index:2;
+}
+
+.login-brand {
+    font-size: 18px;
+    font-weight: 800;
+    color: #eef2ff;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.login-brand span {
+    color: #facc15;
 }
 @keyframes enter{
     from{
@@ -84,14 +97,14 @@ body{
 /* ===== BUTTON ===== */
 .btn-login{
     display:block;
-    margin:4px auto 0;
-    width:110px;
-    height:30px;
+    margin:8px auto 0;
+    width:120px;
+    height:36px;
     border-radius:999px;
-    font-size:12px;
-    font-weight:600;
-    background:#fff;
-    color:#000;
+    font-size:13px;
+    font-weight:700;
+    background: linear-gradient(135deg, #2563eb, #facc15);
+    color:#0f172a;
     position:relative;
     overflow:hidden;
     transition:.3s;
@@ -130,10 +143,11 @@ a:hover{ text-decoration:underline }
 
 <!-- LOGIN CARD -->
 <div class="login-card text-center">
-    <div class="login-title mb-3">ADMIN LOGIN</div>
+    <div class="login-brand">3R <span>Motor</span> Admin</div>
+    <div class="login-title mb-3">Silakan masuk</div>
 
     @if(session('error'))
-        <div class="alert alert-danger py-1 small">
+        <div class="alert alert-danger py-2 small rounded-3">
             {{ session('error') }}
         </div>
     @endif
