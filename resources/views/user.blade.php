@@ -139,14 +139,19 @@
             </p>
 
         <form id="userForm">
-    <input type="hidden" id="mobilId" name="mobilId">
-    <input type="hidden" id="mobilNama" name="nama_mobil"> <!-- FIX -->
-    <input type="hidden" id="mobilHarga" name="mobilHarga">
+            <input type="hidden" id="mobilId" name="mobilId">
+            <input type="hidden" id="mobilNama" name="nama_mobil">
+            <input type="hidden" id="mobilHarga" name="mobilHarga">
 
-    <div class="form-group">
-        <label>Nama Lengkap</label>
-        <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
-    </div>
+            <div class="form-group">
+                <label>Mobil yang dipilih</label>
+                <input type="text" id="mobilNamaDisplay" class="form-control" placeholder="Pilih mobil dulu" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" name="nama" required placeholder="Masukkan nama lengkap">
+            </div>
 
     <div class="form-group">
         <label>Email</label>

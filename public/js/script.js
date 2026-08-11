@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobilIdInput = document.getElementById('mobilId');
     const mobilNamaInput = document.getElementById('mobilNama');
     const mobilHargaInput = document.getElementById('mobilHarga');
+    const mobilNamaDisplay = document.getElementById('mobilNamaDisplay');
 
     const closeFormBtn   = document.querySelector('.close');
     const closeDetailBtn = document.querySelector('.close-detail');
@@ -68,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (mobilIdInput) mobilIdInput.value = this.dataset.id;
             if (mobilNamaInput) mobilNamaInput.value = this.dataset.nama;
             if (mobilHargaInput) mobilHargaInput.value = this.dataset.harga;
+            if (mobilNamaDisplay) mobilNamaDisplay.value = this.dataset.nama;
             
             openModal(formModal);
         });
