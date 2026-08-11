@@ -30,13 +30,11 @@
                     @forelse($mobils as $m)
                     <tr>
                         <td>
-                            @if($m->foto)
-                                <img src="{{ Storage::url($m->foto) }}" width="70" class="rounded shadow-sm">
-                            @else
-                                <div class="bg-light d-flex align-items-center justify-content-center rounded" style="width:70px; height:50px;">
-                                    <small class="text-muted">No Pic</small>
-                                </div>
-                            @endif
+                                @if($m->foto && Illuminate\Support\Facades\Storage::exists($m->foto))
+                                    <img src="{{ Storage::url($m->foto) }}" width="70" class="rounded shadow-sm">
+                                @else
+                                    <img src="https://via.placeholder.com/70x50?text=No+Pic" width="70" class="rounded shadow-sm" alt="No image">
+                                @endif
                         </td>
                         <td><span class="badge bg-secondary">{{ $m->seri }}</span></td>
                         <td>{{ $m->nama_mobil }}</td>
