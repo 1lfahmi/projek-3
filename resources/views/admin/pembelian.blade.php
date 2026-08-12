@@ -26,6 +26,7 @@
                         <th class="py-4 px-4 text-center" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">NO</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Pembeli & Email</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Kontak</th>
+                        <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Nama Mobil</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Alamat & Kota</th>
                         <th class="py-4 text-center" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Aksi</th>
                     </tr>
@@ -51,6 +52,9 @@
                                style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid #bbf7d0;">
                                 <i class="fab fa-whatsapp me-2"></i>{{ $item->no_telepon }}
                             </a>
+                        </td>
+                        <td>
+                            <div style="color: #0f172a; font-size: 14px; font-weight: 700;">{{ $item->nama_mobil }}</div>
                         </td>
                         <td>
                             <div style="color: #000000; font-size: 13.5px; font-weight: 600;">
@@ -95,6 +99,10 @@
                                         <div class="mb-3">
                                             <label class="form-label text-white-50 small fw-bold">EMAIL</label>
                                             <input type="email" name="email" class="form-control bg-dark border-secondary text-white" value="{{ $item->email }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label text-white-50 small fw-bold">NAMA MOBIL</label>
+                                            <input type="text" name="nama_mobil" class="form-control bg-dark border-secondary text-white" value="{{ $item->nama_mobil }}" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label text-white-50 small fw-bold">NO. TELEPON</label>

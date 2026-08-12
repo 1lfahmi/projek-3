@@ -59,6 +59,7 @@ class PembelianController extends Controller
         $request->validate([
             'nama'        => 'required',
             'email'       => 'required|email',
+            'nama_mobil'  => 'required',
             'no_telepon'  => 'required',
             'kota'        => 'required',
             'alamat'      => 'required',
