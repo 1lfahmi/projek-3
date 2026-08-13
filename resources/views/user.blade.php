@@ -111,19 +111,39 @@
 
         <section id="kontak" class="section">
             <h2 class="section-title">📞 Hubungi Kami</h2>
+
+            <div class="dealer-sell-box">
+                <div class="dealer-sell-text">
+                    <span class="sell-badge">Jual Mobil Anda Di Sini</span>
+                    <h3>Dealer siap membantu menilai dan membeli mobil Anda</h3>
+                    <p>Jika Anda ingin menjual mobil, cukup hubungi dealer kami. Tim kami siap membantu proses negosiasi, cek kondisi kendaraan, dan jadwal datang langsung ke tempat Anda.</p>
+                </div>
+                <div class="dealer-sell-actions">
+                    <a href="https://wa.me/6285191163819?text=Halo%20dealer%203R%20Motor%2C%20saya%20ingin%20jual%20mobil%20saya" class="contact-btn whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat Dealer
+                    </a>
+                    <a href="tel:+6285191163819" class="contact-btn call">
+                        <i class="fas fa-phone-alt"></i> Hubungi Telepon
+                    </a>
+                </div>
+            </div>
+
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <h4>📍 Lokasi</h4>
+                        <h4>📍 Lokasi Showroom</h4>
                         <p>Jl. Merdeka No.123, Jakarta, Indonesia</p>
+                        <small>Datang langsung ke tempat untuk inspeksi kendaraan dan negosiasi.</small>
                     </div>
                     <div class="contact-item">
-                        <h4>📞 Telepon</h4>
+                        <h4>📞 Telepon Dealer</h4>
                         <p>+62 851 9116 3819</p>
+                        <small>Siap membantu pembelian dan penjualan mobil Anda.</small>
                     </div>
                     <div class="contact-item">
                         <h4>📧 Email</h4>
                         <p>info@3rmotor.com</p>
+                        <small>Untuk pertanyaan, penjualan, atau kerja sama.</small>
                     </div>
                 </div>
             </div>
