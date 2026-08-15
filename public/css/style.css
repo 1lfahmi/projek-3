@@ -90,9 +90,9 @@ body {
 header {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     color: #f5f5dc;
-    padding: 60px 40px;
+    padding: 65px 24px; /* reduced padding for smaller hero */
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     position: relative;
     overflow: hidden;
     border-bottom: 3px solid transparent;
@@ -118,8 +118,8 @@ header::before {
 }
 
 header h1 {
-    font-size: 42px;
-    margin-bottom: 12px;
+    font-size: 32px; /* smaller title */
+    margin-bottom: 8px;
     position: relative;
     z-index: 1;
     font-weight: 700;
@@ -127,11 +127,29 @@ header h1 {
 }
 
 header p {
-    font-size: 18px;
+    font-size: 14px; /* smaller subtitle */
     opacity: 0.95;
     position: relative;
     z-index: 1;
     color: #d4d4c8;
+}
+
+/* Hero banner using local image (actual file in public/images is gy-banner.jpg.png) */
+#beranda {
+    background-size: cover;
+    background-position: center;
+}
+
+#beranda.has-banner {
+    background-image: linear-gradient(rgba(3,7,18,0.45), rgba(3,7,18,0.35)), url('/images/gy-banner.jpg.png');
+}
+
+#beranda h1 {
+    font-size: 38px;
+}
+
+#beranda p {
+    font-size: 16px;
 }
 
 /* SECTIONS */
@@ -427,84 +445,6 @@ header p {
 }
 
 /* CONTACT SECTION */
-.dealer-sell-box {
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(250, 204, 21, 0.12));
-    border: 1px solid rgba(255, 214, 88, 0.25);
-    border-radius: 20px;
-    padding: 28px 30px;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-.dealer-sell-text {
-    flex: 1;
-}
-
-.sell-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #facc15, #f59e0b);
-    color: #111827;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    padding: 7px 12px;
-    border-radius: 999px;
-    margin-bottom: 12px;
-}
-
-.dealer-sell-text h3 {
-    margin: 0 0 10px;
-    color: #f5f5dc;
-    font-size: clamp(22px, 3vw, 32px);
-    line-height: 1.3;
-}
-
-.dealer-sell-text p {
-    margin: 0;
-    color: #d4d4c8;
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.dealer-sell-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.contact-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 13px 18px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    transition: 0.3s ease;
-}
-
-.contact-btn.whatsapp {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    color: #ffffff;
-}
-
-.contact-btn.call {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    color: #ffffff;
-}
-
-.contact-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.24);
-}
-
 .contact-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -518,13 +458,6 @@ header p {
     border-left: 5px solid transparent;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
-}
-
-.contact-item small {
-    display: block;
-    margin-top: 10px;
-    color: #a1a1aa;
-    line-height: 1.6;
 }
 
 /* Rainbow border pada setiap contact item */
