@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>3R Motor Admin Login</title>
+<title>GY-Techautocar Admin Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -143,7 +143,7 @@ a:hover{ text-decoration:underline }
 
 <!-- LOGIN CARD -->
 <div class="login-card text-center">
-    <div class="login-brand">3R <span>Motor</span> Admin</div>
+    <div class="login-brand">GY<span>-Techautocar</span> Admin</div>
     <div class="login-title mb-3">Silakan masuk</div>
 
     @if(session('error'))

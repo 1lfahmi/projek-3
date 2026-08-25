@@ -16,7 +16,15 @@ function editMobil(id) {
             document.getElementById('edit_seri').value = data.seri;
             document.getElementById('edit_nama').value = data.nama_mobil;
             document.getElementById('edit_merek').value = data.merek;
-            document.getElementById('edit_harga').value = data.harga;
+            document.getElementById('edit_tahun').value = data.tahun || '';
+            document.getElementById('edit_mesin').value = data.mesin || '';
+            document.getElementById('edit_cc').value = data.cc || '';
+            document.getElementById('edit_transmisi').value = data.transmisi || '';
+            document.getElementById('edit_bahan_bakar').value = data.bahan_bakar || '';
+            document.getElementById('edit_warna').value = data.warna || '';
+            document.getElementById('edit_penggerak').value = data.penggerak || '';
+            document.getElementById('edit_harga').value = new Intl.NumberFormat('id-ID').format(data.harga);
+            document.getElementById('edit_harga_value').value = data.harga;
             document.getElementById('edit_stok').value = data.stok;
             
             // 3. Update atribut 'action' pada form agar mengarah ke route update yang benar

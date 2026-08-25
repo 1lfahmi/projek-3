@@ -11,10 +11,13 @@ use App\Http\Controllers\MobilController;
 
 // --- HALAMAN USER ---
 Route::get('/', function () {
-    $mobils = \App\Models\Mobil::all();
+    $mobils = \App\Models\Mobil::where(function ($query) {
+        $query->whereNull('status')->orWhere('status', '!=', 'sold');
+    })->get();
     return view('user', compact('mobils'));
 });
 Route::post('/beli-mobil', [PembelianController::class, 'store'])->name('pembelian.store');
+
 
 
 Route::get('/admin/pembelian/{id}/edit', [PembelianController::class, 'edit'])->name('beli.edit');
@@ -32,12 +35,15 @@ Route::middleware(['auth'])->group(function () {
 
     // CRUD Mobil
     Route::resource('mobil', MobilController::class);
+    Route::post('/admin/mobil/{id}/set-available', [MobilController::class, 'setAvailable'])->name('mobil.setAvailable');
 
     // CRUD Staff Admin
     Route::resource('manage-admin', ManageAdminController::class);
 
     // Data Pembelian
     Route::get('/admin/pembelian', [PembelianController::class, 'index'])->name('admin.pembelian');
+    Route::get('/admin/riwayat', [PembelianController::class, 'history'])->name('admin.riwayat');
+    Route::post('/admin/pembelian/{id}/confirm', [PembelianController::class, 'confirm'])->name('beli.confirm');
     
     // INI YANG DIPERBAIKI: Namanya diganti jadi beli.destroy agar cocok dengan file blade
     Route::delete('/admin/pembelian/{id}', [PembelianController::class, 'destroy'])->name('beli.destroy');

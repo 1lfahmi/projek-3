@@ -6,9 +6,9 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1 text-white">
-                <i class="fas fa-receipt text-info me-2"></i> Data Transaksi Penjualan
+                <i class="fas fa-chart-line text-info me-2"></i> Penjualan
             </h2>
-            <p class="text-muted small mb-0">Kelola dan pantau semua riwayat transaksi pembeli secara real-time.</p>
+            <p class="text-muted small mb-0">Kelola transaksi pembelian yang belum dikonfirmasi.</p>
         </div>
         <div class="text-end">
             <span class="badge px-3 py-2 shadow-sm" style="background: #2563eb; border-radius: 12px; font-weight: 700; color: #ffffff;">
@@ -27,12 +27,14 @@
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Pembeli & Email</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Kontak</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Nama Mobil</th>
+                        <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Tanggal</th>
+                        <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Status</th>
                         <th class="py-4" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Alamat & Kota</th>
                         <th class="py-4 text-center" style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($belis as $item)
+                    @forelse($belis as $item)
                     <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; transition: 0.3s;">
                         <td class="px-4 text-center fw-bold" style="color: #64748b;">#{{ $loop->iteration }}</td>
                         <td>
@@ -57,6 +59,21 @@
                             <div style="color: #0f172a; font-size: 14px; font-weight: 700;">{{ $item->nama_mobil }}</div>
                         </td>
                         <td>
+                            <div style="color: #334155; font-size: 13px; font-weight: 700; white-space: nowrap;">
+                                <i class="fas fa-calendar-days text-info me-1"></i>{{ $item->created_at->format('d/m/Y') }}
+                            </div>
+                            <small style="color: #64748b;">{{ $item->created_at->format('H:i') }} WIB</small>
+                        </td>
+                        <td>
+                            @if(isset($item->status) && $item->status === 'completed')
+                                <span class="badge bg-danger text-white">Selesai</span>
+                            @elseif(isset($item->status) && $item->status === 'pending')
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            @else
+                                <span class="badge bg-secondary">{{ ucfirst($item->status) }}</span>
+                            @endif
+                        </td>
+                        <td>
                             <div style="color: #000000; font-size: 13.5px; font-weight: 600;">
                                 <i class="fas fa-map-marker-alt text-danger me-2"></i>{{ $item->alamat }}
                             </div>
@@ -70,6 +87,16 @@
                                 <button type="button" class="btn-edit d-flex align-items-center justify-content-center border-0" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
+
+                                {{-- Confirm / Mark as Terbeli --}}
+                                @if($item->status !== 'completed')
+                                <form action="{{ route('beli.confirm', $item->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success btn-sm" title="Konfirmasi Pembelian">✔︎</button>
+                                </form>
+                                @else
+                                    <span class="badge bg-success">Terkonfirmasi</span>
+                                @endif
 
                                 <form action="{{ route('beli.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf @method('DELETE')
@@ -125,7 +152,15 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center py-5" style="color: #64748b;">
+                            <i class="fas fa-inbox d-block mb-3" style="font-size: 2.5rem;"></i>
+                            <div class="fw-bold">Belum ada riwayat pembelian</div>
+                            <small>Transaksi dari formulir pembelian akan muncul di sini.</small>
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>3R Motor Admin Panel</title>
+    <title>GY-Techautocar Admin Panel</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -256,7 +256,7 @@
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand text-center">
-            <i class="fas fa-rocket me-2"></i>3R MOTOR
+            <i class="fas fa-rocket me-2"></i>GY-TECHautocar
         </div>
         
         <nav class="mt-2 flex-grow-1">
@@ -271,6 +271,9 @@
             </a>
             <a href="{{ route('manage-admin.index') }}" class="{{ request()->is('manage-admin*') ? 'active' : '' }}">
                 <i class="fas fa-user-gear me-2"></i> Staff Akses
+            </a>
+            <a href="{{ route('admin.riwayat') }}" class="{{ request()->is('admin/riwayat*') ? 'active' : '' }}">
+                <i class="fas fa-clock-rotate-left me-2"></i> Riwayat
             </a>
 
             <div style="margin-top: 80px;">

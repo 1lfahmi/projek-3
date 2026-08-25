@@ -16,7 +16,7 @@
         <div class="nav-container">
             <div class="nav-logo" onclick="scrollToSection('beranda')">
                 <div class="logo-text">
-                    <span class="logo-title">3R Motor</span>
+                    <span class="logo-title">GY-Techautocar</span>
                     <span class="logo-subtitle">Premium Vehicles</span>
                 </div>
             </div>
@@ -31,7 +31,7 @@
     </nav>
 
     <div class="container">
-        <header id="beranda" class="has-banner">
+        <header id="beranda">
             <h1>Promosi Mobil 2025</h1>
             <p>Pilihan Terbaik Untuk Kendaraan Impian Anda</p>
         </header>
@@ -75,18 +75,34 @@
                     <div class="mobil-action">
                         <button class="btn-detail"
                             data-id="{{ $m->seri }}"
+                            data-seri="{{ $m->seri }}"
                             data-nama="{{ $m->nama_mobil }}"
                             data-merek="{{ $m->merek }}"
-                            data-harga="Rp {{ number_format($m->harga, 0, ',', '.') }}">
+                            data-harga="Rp {{ number_format($m->harga, 0, ',', '.') }}"
+                            data-mesin="{{ $m->mesin ?? '-' }}"
+                            data-transmisi="{{ $m->transmisi ?? '-' }}"
+                            data-bahanbakar="{{ $m->bahan_bakar ?? '-' }}"
+                            data-cc="{{ $m->cc ? $m->cc . ' cc' : '-' }}"
+                            data-warna="{{ $m->warna ?? '-' }}"
+                            data-tahun="{{ $m->tahun ?? '-' }}"
+                            data-penggerak="{{ $m->penggerak ?? '-' }}"
+                            data-stok="{{ $m->stok }}"
+                            data-foto="{{ $m->foto ? Storage::url($m->foto) : '' }}">
                             📋 Detail
                         </button>
 
-                        <button class="btn-beli"
-                            data-id="{{ $m->seri }}"
-                            data-nama="{{ $m->nama_mobil }}"
-                            data-harga="Rp {{ number_format($m->harga, 0, ',', '.') }}">
-                            🛒 Beli Sekarang
-                        </button>
+                        @if(isset($m->status) && $m->status !== 'available')
+                            <button class="btn-beli" disabled style="opacity:0.6;cursor:not-allowed;">
+                                🔒 {{ $m->status === 'reserved' ? 'Sedang Diproses' : 'Terbeli' }}
+                            </button>
+                        @else
+                            <button class="btn-beli"
+                                data-id="{{ $m->id }}"
+                                data-nama="{{ $m->nama_mobil }}"
+                                data-harga="Rp {{ number_format($m->harga, 0, ',', '.') }}">
+                                🛒 Beli Sekarang
+                            </button>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -97,8 +113,8 @@
             <h2 class="section-title">ℹ️ Tentang Kami</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>3R Motor - Solusi Kendaraan Premium Anda</h3>
-                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, 3R Motor berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
+                    <h3>GY-Techautocar - Solusi Kendaraan Premium Anda</h3>
+                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, GY-Techautocar berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
                     <div class="about-features">
                         <div class="feature-item">✓ Mobil Original & Bergaransi</div>
                         <div class="feature-item">✓ Cicilan Ringan Hingga 7 Tahun</div>
@@ -123,7 +139,7 @@
                     </div>
                     <div class="contact-item">
                         <h4>📧 Email</h4>
-                        <p>info@3rmotor.com</p>
+                        <p>info@gy-techautocar.com</p>
                     </div>
                 </div>
             </div>
@@ -187,7 +203,9 @@
     <div id="detailModal" class="modal">
         <div class="modal-content">
             <span class="close-detail">&times;</span>
+            <img id="detailFoto" class="detail-photo" src="" alt="Foto kendaraan">
             <h2 id="detailNama"></h2>
+            <p><strong>Seri:</strong> <span id="detailSeri">-</span></p>
             <p><strong>Merek:</strong> <span id="detailMerek"></span></p>
             <p><strong>Harga:</strong> <span id="detailHarga"></span></p>
             <p><strong>Mesin:</strong> <span id="detailMesin">-</span></p>
@@ -197,13 +215,14 @@
             <p><strong>Warna:</strong> <span id="detailWarna">-</span></p>
             <p><strong>Tahun:</strong> <span id="detailTahun">-</span></p>
             <p><strong>Penggerak:</strong> <span id="detailPenggerak">-</span></p>
+            <p><strong>Stok:</strong> <span id="detailStok">-</span></p>
         </div>
     </div>
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3> 3R Motor</h3>
+                <h3> GY-Techautocar</h3>
                 <p>Penyedia kendaraan premium terpercaya.</p>
                 <div class="social-links">
                     <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
@@ -229,7 +248,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy;  2025 3R Motor. All rights reserved.</p>
+            <p>&copy;  2025 GY-Techautocar. All rights reserved.</p>
             <p>@.Developing by fahmi al ghifari</p>
         </div>
     </footer>

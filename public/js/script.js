@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cancelBtn      = document.getElementById('cancelBtn');
 
     const detailFields = {
+	seri: document.getElementById('detailSeri'),
         nama: document.getElementById('detailNama'),
         merek: document.getElementById('detailMerek'),
         harga: document.getElementById('detailHarga'),
@@ -43,8 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
         cc: document.getElementById('detailCc'),
         warna: document.getElementById('detailWarna'),
         tahun: document.getElementById('detailTahun'),
-        penggerak: document.getElementById('detailPenggerak')
+        penggerak: document.getElementById('detailPenggerak'),
+		stok: document.getElementById('detailStok')
     };
+	const detailFoto = document.getElementById('detailFoto');
 
     const openModal = (modal) => {
         if (!modal) return;
@@ -60,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* ================= OPEN MODAL BELI ================= */
-    document.querySelectorAll('.btn-beli').forEach(btn => {
+	document.querySelectorAll('.btn-beli').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
             // Simpan data mobil yang dipilih
-            if (mobilIdInput) mobilIdInput.value = this.dataset.id;
+			if (mobilIdInput) mobilIdInput.value = this.dataset.id;
             if (mobilNamaInput) mobilNamaInput.value = this.dataset.nama;
             if (mobilHargaInput) mobilHargaInput.value = this.dataset.harga;
             if (mobilNamaDisplay) mobilNamaDisplay.value = this.dataset.nama;
@@ -87,6 +90,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     detailFields[key].innerText = this.dataset[key] || '-';
                 }
             });
+
+			if (detailFoto) {
+				detailFoto.src = this.dataset.foto || '';
+				detailFoto.style.display = this.dataset.foto ? 'block' : 'none';
+			}
+			if (detailFields.stok) detailFields.stok.innerText = `${this.dataset.stok || '-'} Unit`;
 
             openModal(detailModal);
         });

@@ -16,6 +16,8 @@ class Pembelian extends Model
         'no_telepon',
         'kota',
         'alamat',
-        'nama_mobil'
+        'nama_mobil',
+        'mobil_id',
+        'status'
     ];
 }

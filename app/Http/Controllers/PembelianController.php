@@ -4,14 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pembelian;
+use App\Models\Mobil;
 
 class PembelianController extends Controller
 {
     // 🔹 TAMPILKAN DATA KE DASHBOARD ADMIN
     public function index()
     {
-        $belis = Pembelian::latest()->get();
+        $belis = Pembelian::where(function ($query) {
+            $query->whereNull('status')->orWhere('status', '!=', 'completed');
+        })->latest()->get();
         return view('admin.pembelian', compact('belis'));
+    }
+
+    public function history()
+    {
+        $belis = Pembelian::where('status', 'completed')->latest()->get();
+        return view('admin.riwayat', compact('belis'));
     }
 
     // 🔹 SIMPAN DATA + BUKA WHATSAPP
@@ -23,10 +32,23 @@ class PembelianController extends Controller
             'no_telepon'  => 'required',
             'kota'        => 'required',
             'alamat'      => 'required',
-            'nama_mobil'  => 'required'
+            'nama_mobil'  => 'required',
+            'mobilId'     => 'required'
         ]);
 
-        $pembelian = Pembelian::create($request->all());
+        // Lock the mobil (mark as reserved) so others cannot buy it while being handled
+        $mobil = Mobil::find($request->input('mobilId'));
+        if ($mobil) {
+            if ($mobil->status !== 'available') {
+                return response()->json(['message' => 'Mobil tidak tersedia'], 400);
+            }
+            $mobil->status = 'reserved';
+            $mobil->save();
+        }
+
+        $pembelianData = $request->only(['nama','email','no_telepon','kota','alamat','nama_mobil']);
+        $pembelianData['mobil_id'] = $mobil ? $mobil->id : null;
+        $pembelian = Pembelian::create($pembelianData);
 
         $pesan = "Halo Admin,%0A%0ASaya ingin membeli kendaraan:%0A".
                  "Nama: {$pembelian->nama}%0A".
@@ -41,6 +63,30 @@ class PembelianController extends Controller
             'message' => 'Pesanan berhasil dikirim!',
             'target_url' => $urlWa
         ]);
+    }
+
+    // Admin confirms the purchase and marks mobil as sold
+    public function confirm($id)
+    {
+        $pembelian = Pembelian::findOrFail($id);
+        if ($pembelian->status === 'completed') {
+            return redirect()->back()->with('success', 'Transaksi sudah dikonfirmasi.');
+        }
+
+        $pembelian->status = 'completed';
+        $pembelian->save();
+
+        if ($pembelian->mobil_id) {
+            $mobil = Mobil::find($pembelian->mobil_id);
+            if ($mobil) {
+                $mobil->status = 'sold';
+                // optionally decrement stock
+                if ($mobil->stok > 0) $mobil->stok = max(0, $mobil->stok - 1);
+                $mobil->save();
+            }
+        }
+
+        return redirect()->route('admin.pembelian')->with('success', 'Transaksi berhasil dikonfirmasi dan mobil ditandai terbeli.');
     }
 
     // 🔹 TAMPILKAN FORM EDIT
@@ -75,6 +121,15 @@ class PembelianController extends Controller
     public function destroy($id)
     {
         $pembelian = Pembelian::findOrFail($id);
+
+        if ($pembelian->status !== 'completed' && $pembelian->mobil_id) {
+            $mobil = Mobil::find($pembelian->mobil_id);
+            if ($mobil && $mobil->status === 'reserved') {
+                $mobil->status = 'available';
+                $mobil->save();
+            }
+        }
+
         $pembelian->delete();
         
         return redirect()->route('admin.pembelian')->with('success', 'Data penjualan berhasil dihapus!');

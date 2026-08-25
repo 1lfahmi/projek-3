@@ -11,7 +11,9 @@ class MobilController extends Controller
     // Menampilkan halaman daftar mobil
     public function index()
     {
-        $mobils = Mobil::all();
+        $mobils = Mobil::where(function ($query) {
+            $query->whereNull('status')->orWhere('status', '!=', 'sold');
+        })->get();
         
         // Data pendukung dashboard
         $totalMobil = Mobil::count();
@@ -28,6 +30,13 @@ class MobilController extends Controller
             'seri'       => 'required', // Tambahkan validasi seri
             'nama_mobil' => 'required',
             'merek'      => 'required',
+            'mesin'      => 'nullable|string|max:100',
+            'transmisi'  => 'nullable|string|max:50',
+            'bahan_bakar'=> 'nullable|string|max:50',
+            'cc'         => 'nullable|integer|min:1',
+            'warna'      => 'nullable|string|max:50',
+            'tahun'      => 'nullable|integer|min:1900|max:'.(date('Y') + 1),
+            'penggerak'  => 'nullable|string|max:50',
             'harga'      => 'required|numeric',
             'stok'       => 'required|numeric',
             'foto'       => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi foto
@@ -60,6 +69,13 @@ class MobilController extends Controller
             'seri'       => 'required',
             'nama_mobil' => 'required',
             'merek'      => 'required',
+            'mesin'      => 'nullable|string|max:100',
+            'transmisi'  => 'nullable|string|max:50',
+            'bahan_bakar'=> 'nullable|string|max:50',
+            'cc'         => 'nullable|integer|min:1',
+            'warna'      => 'nullable|string|max:50',
+            'tahun'      => 'nullable|integer|min:1900|max:'.(date('Y') + 1),
+            'penggerak'  => 'nullable|string|max:50',
             'harga'      => 'required|numeric',
             'stok'       => 'required|numeric',
             'foto'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Foto opsional saat edit
@@ -98,5 +114,15 @@ class MobilController extends Controller
         $mobil->delete(); 
 
         return redirect()->back()->with('success', 'Data mobil dan fotonya berhasil dihapus!');
+    }
+
+    // Set mobil status back to 'available' (admin action)
+    public function setAvailable($id)
+    {
+        $mobil = Mobil::findOrFail($id);
+        $mobil->status = 'available';
+        $mobil->save();
+
+        return redirect()->back()->with('success', 'Status mobil diubah menjadi tersedia.');
     }
 }
