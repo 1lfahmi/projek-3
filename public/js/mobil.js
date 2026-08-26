@@ -3,7 +3,6 @@
  * @param {number} id - ID Mobil dari database
  */
 function editMobil(id) {
-    // 1. Lakukan request ke server untuk ambil data JSON
     fetch(`/mobil/${id}/edit`)
         .then(response => {
             if (!response.ok) {
@@ -12,7 +11,6 @@ function editMobil(id) {
             return response.json();
         })
         .then(data => {
-            // 2. Isi value masing-masing input di modal edit
             document.getElementById('edit_seri').value = data.seri;
             document.getElementById('edit_nama').value = data.nama_mobil;
             document.getElementById('edit_merek').value = data.merek;
@@ -26,12 +24,21 @@ function editMobil(id) {
             document.getElementById('edit_harga').value = new Intl.NumberFormat('id-ID').format(data.harga);
             document.getElementById('edit_harga_value').value = data.harga;
             document.getElementById('edit_stok').value = data.stok;
-            
-            // 3. Update atribut 'action' pada form agar mengarah ke route update yang benar
+            document.getElementById('editPreviewNama').textContent = data.nama_mobil || 'Nama kendaraan';
+            document.getElementById('editPreviewMerek').textContent = data.merek || 'Merek';
+            document.getElementById('editPreviewTahun').textContent = data.tahun || 'Tahun';
+            document.getElementById('editPreviewHarga').textContent = data.harga ? `Rp ${new Intl.NumberFormat('id-ID').format(data.harga)}` : 'Rp 0';
+
             const editForm = document.getElementById('formEditMobil');
             editForm.action = `/mobil/${id}`;
-            
-            // 4. Munculkan modal edit menggunakan Bootstrap 5 API
+
+            const preview = document.getElementById('editFotoPreview');
+            const placeholder = document.getElementById('editFotoPlaceholder');
+            window.editExistingPhotos = Array.isArray(data.foto_url) ? data.foto_url : (data.foto_url ? [data.foto_url] : []);
+            window.editNewPhotoUrls = [];
+            window.editPhotoIndex = 0;
+            updateEditGallery();
+
             const modalElement = document.getElementById('modalEditMobil');
             const editModal = new bootstrap.Modal(modalElement);
             editModal.show();
@@ -41,3 +48,107 @@ function editMobil(id) {
             alert('Terjadi kesalahan saat memuat data mobil.');
         });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const editFotoInput = document.getElementById('editFotoInput');
+    const editFotoPreview = document.getElementById('editFotoPreview');
+    const editFotoPlaceholder = document.getElementById('editFotoPlaceholder');
+    const editGallery = document.getElementById('editGallery');
+    const editFotoDots = document.getElementById('editFotoDots');
+    const editFotoPrev = document.getElementById('editFotoPrev');
+    const editFotoNext = document.getElementById('editFotoNext');
+    window.editExistingPhotos = [];
+    window.editNewPhotoUrls = [];
+    window.editPhotoIndex = 0;
+
+    window.updateEditGallery = function () {
+        const photos = window.editExistingPhotos.concat(window.editNewPhotoUrls);
+        const hasPhotos = photos.length > 0;
+        editFotoPreview.src = hasPhotos ? photos[window.editPhotoIndex] : '';
+        editFotoPreview.style.display = hasPhotos ? 'block' : 'none';
+        editFotoPlaceholder.style.display = hasPhotos ? 'none' : 'flex';
+        editGallery.classList.toggle('has-gallery', photos.length > 1);
+        editFotoDots.innerHTML = photos.map((photo, index) => `<button type="button" class="gallery-dot ${index === window.editPhotoIndex ? 'active' : ''}" aria-label="Foto ${index + 1}"></button>`).join('');
+        editFotoDots.querySelectorAll('.gallery-dot').forEach((dot, index) => dot.addEventListener('click', () => {
+            window.editPhotoIndex = index;
+            updateEditGallery();
+        }));
+    };
+    let editFotoFiles = [];
+    let editFotoUrls = [];
+
+    if (editFotoInput) {
+        editFotoInput.addEventListener('change', function () {
+            const files = Array.from(this.files || []);
+            if (editFotoFiles.length + files.length > 5) {
+                alert('Maksimal 5 foto baru yang dapat ditambahkan.');
+            } else {
+                editFotoFiles = editFotoFiles.concat(files);
+            }
+
+            const allFiles = editFotoFiles;
+            if (!allFiles.length) {
+                editFotoPreview.src = '';
+                editFotoPreview.style.display = 'none';
+                editFotoPlaceholder.style.display = 'flex';
+                return;
+            }
+
+            editFotoUrls.forEach(url => URL.revokeObjectURL(url));
+            editFotoUrls = allFiles.map(file => URL.createObjectURL(file));
+            const transfer = new DataTransfer();
+            allFiles.forEach(file => transfer.items.add(file));
+            editFotoInput.files = transfer.files;
+            window.editNewPhotoUrls = editFotoUrls;
+            window.editPhotoIndex = window.editExistingPhotos.length;
+            updateEditGallery();
+        });
+    }
+
+    editFotoPrev.addEventListener('click', () => {
+        const total = window.editExistingPhotos.length + window.editNewPhotoUrls.length;
+        if (total > 1) {
+            window.editPhotoIndex = (window.editPhotoIndex - 1 + total) % total;
+            updateEditGallery();
+        }
+    });
+    editFotoNext.addEventListener('click', () => {
+        const total = window.editExistingPhotos.length + window.editNewPhotoUrls.length;
+        if (total > 1) {
+            window.editPhotoIndex = (window.editPhotoIndex + 1) % total;
+            updateEditGallery();
+        }
+    });
+
+    document.getElementById('modalEditMobil').addEventListener('hidden.bs.modal', () => {
+        editFotoFiles = [];
+        editFotoUrls.forEach(url => URL.revokeObjectURL(url));
+        editFotoUrls = [];
+        editFotoInput.value = '';
+        editFotoPreview.src = '';
+        editFotoPreview.style.display = 'none';
+        editFotoPlaceholder.style.display = 'flex';
+        window.editExistingPhotos = [];
+        window.editNewPhotoUrls = [];
+        window.editPhotoIndex = 0;
+        updateEditGallery();
+    });
+
+    const editForm = document.getElementById('formEditMobil');
+    if (editForm) {
+        editForm.querySelectorAll('.harga-display').forEach(input => {
+            input.addEventListener('input', function () {
+                const digits = this.value.replace(/\D/g, '');
+                this.value = digits ? new Intl.NumberFormat('id-ID').format(Number(digits)) : '';
+                const valueField = this.closest('form').querySelector('.harga-value');
+                if (valueField) valueField.value = digits;
+            });
+        });
+
+        editForm.addEventListener('submit', function () {
+            const display = this.querySelector('.harga-display');
+            const value = this.querySelector('.harga-value');
+            if (display && value) value.value = display.value.replace(/\D/g, '');
+        });
+    }
+});

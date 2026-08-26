@@ -35,11 +35,12 @@ class MobilController extends Controller
             'bahan_bakar'=> 'nullable|string|max:50',
             'cc'         => 'nullable|integer|min:1',
             'warna'      => 'nullable|string|max:50',
-            'tahun'      => 'nullable|integer|min:1900|max:'.(date('Y') + 1),
+            'tahun'      => 'nullable|integer|min:1900',
             'penggerak'  => 'nullable|string|max:50',
             'harga'      => 'required|numeric',
             'stok'       => 'required|numeric',
-            'foto'       => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi foto
+            'foto'       => 'required|array|min:1|max:5',
+            'foto.*'     => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $data = $request->all();
@@ -47,7 +48,9 @@ class MobilController extends Controller
 
         // Logika Upload Foto
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('mobil', $disk);
+            $data['foto'] = collect($request->file('foto'))
+                ->map(fn ($file) => $file->store('mobil', $disk))
+                ->all();
         }
 
         Mobil::create($data);
@@ -59,7 +62,10 @@ class MobilController extends Controller
     public function edit($id)
     {
         $mobil = Mobil::find($id);
-        return response()->json($mobil); 
+        $data = $mobil->toArray();
+        $data['foto_url'] = collect($mobil->foto)->map(fn ($photo) => Storage::url($photo))->values()->all();
+
+        return response()->json($data);
     }
 
     // Fungsi untuk menyimpan perubahan
@@ -74,11 +80,12 @@ class MobilController extends Controller
             'bahan_bakar'=> 'nullable|string|max:50',
             'cc'         => 'nullable|integer|min:1',
             'warna'      => 'nullable|string|max:50',
-            'tahun'      => 'nullable|integer|min:1900|max:'.(date('Y') + 1),
+            'tahun'      => 'nullable|integer|min:1900',
             'penggerak'  => 'nullable|string|max:50',
             'harga'      => 'required|numeric',
             'stok'       => 'required|numeric',
-            'foto'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Foto opsional saat edit
+            'foto'       => 'nullable|array|max:5',
+            'foto.*'     => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $mobil = Mobil::findOrFail($id);
@@ -87,12 +94,10 @@ class MobilController extends Controller
         // Logika Update Foto
         if ($request->hasFile('foto')) {
             $disk = env('FILESYSTEM_DISK', 'local');
-            // Hapus foto lama dari storage agar tidak memenuhi memori
-            if ($mobil->foto) {
-                Storage::disk($disk)->delete($mobil->foto);
-            }
-            // Simpan foto baru
-            $data['foto'] = $request->file('foto')->store('mobil', $disk);
+            $newPhotos = collect($request->file('foto'))
+                ->map(fn ($file) => $file->store('mobil', $disk))
+                ->all();
+            $data['foto'] = array_merge($mobil->foto, $newPhotos);
         }
 
         $mobil->update($data);

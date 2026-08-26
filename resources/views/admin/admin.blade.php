@@ -256,7 +256,7 @@
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand text-center">
-            <i class="fas fa-rocket me-2"></i>GY-TECHautocar
+            GY-TECHautocar
         </div>
         
         <nav class="mt-2 flex-grow-1">

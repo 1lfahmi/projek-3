@@ -76,11 +76,18 @@
                 @foreach($mobils as $m)
                 <div class="mobil-card">
                     <div class="mobil-info">
-                            @if($m->foto && Illuminate\Support\Facades\Storage::exists($m->foto))
-                                <img src="{{ Storage::url($m->foto) }}" alt="{{ $m->nama_mobil }}">
-                            @else
-                                <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No image">
-                            @endif
+                        <div class="product-gallery" data-gallery>
+                            @forelse($m->foto as $photo)
+                                @if(Illuminate\Support\Facades\Storage::exists($photo))
+                                    <img class="gallery-image {{ $loop->first ? 'active' : '' }}" src="{{ Storage::url($photo) }}" alt="{{ $m->nama_mobil }}">
+                                @endif
+                            @empty
+                                <img class="gallery-image active" src="https://via.placeholder.com/300x200?text=No+Image" alt="No image">
+                            @endforelse
+                            <button type="button" class="gallery-arrow gallery-prev" aria-label="Foto sebelumnya"><i class="fas fa-chevron-left"></i></button>
+                            <button type="button" class="gallery-arrow gallery-next" aria-label="Foto berikutnya"><i class="fas fa-chevron-right"></i></button>
+                            <div class="gallery-dots"></div>
+                        </div>
                     </div>
 
                     <div class="mobil-detail">

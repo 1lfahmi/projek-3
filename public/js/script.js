@@ -49,6 +49,32 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 	const detailFoto = document.getElementById('detailFoto');
 
+	document.querySelectorAll('[data-gallery]').forEach(gallery => {
+		const images = Array.from(gallery.querySelectorAll('.gallery-image'));
+		const dots = gallery.querySelector('.gallery-dots');
+		let currentIndex = 0;
+
+		const updateGallery = () => {
+			images.forEach((image, index) => image.classList.toggle('active', index === currentIndex));
+			gallery.classList.toggle('has-multiple', images.length > 1);
+			dots.innerHTML = images.length > 1 ? images.map((image, index) => `<button type="button" class="gallery-dot ${index === currentIndex ? 'active' : ''}" aria-label="Foto ${index + 1}"></button>`).join('') : '';
+			dots.querySelectorAll('.gallery-dot').forEach((dot, index) => dot.addEventListener('click', () => {
+				currentIndex = index;
+				updateGallery();
+			}));
+		};
+
+		gallery.querySelector('.gallery-prev').addEventListener('click', () => {
+			currentIndex = (currentIndex - 1 + images.length) % images.length;
+			updateGallery();
+		});
+		gallery.querySelector('.gallery-next').addEventListener('click', () => {
+			currentIndex = (currentIndex + 1) % images.length;
+			updateGallery();
+		});
+		updateGallery();
+	});
+
     const openModal = (modal) => {
         if (!modal) return;
         modal.classList.add('show');
