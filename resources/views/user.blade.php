@@ -25,16 +25,50 @@
                 <a href="#katalog" class="nav-link" onclick="scrollToSection('katalog'); return false;">Katalog</a>
                 <a href="#tentang" class="nav-link" onclick="scrollToSection('tentang'); return false;">Tentang</a>
                 <a href="#kontak" class="nav-link" onclick="scrollToSection('kontak'); return false;">Kontak</a>
-                <a href="{{ route('admin.login') }}" class="nav-link admin-link">👨‍💼 Admin</a>
+                <a href="{{ route('admin.login') }}" class="nav-link admin-link">Admin</a>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <header id="beranda">
-            <h1>Promosi Mobil 2025</h1>
+        <header>
+            <h1>GY-Techautocar</h1>
             <p>Pilihan Terbaik Untuk Kendaraan Impian Anda</p>
         </header>
+
+        <section id="beranda" class="section active">
+            <h2 class="section-title">Beranda</h2>
+            <div class="hero-home">
+                <div class="hero-copy">
+                    <span class="hero-tag">GY-Techautocar</span>
+                    <h3>Temukan kendaraan berkualitas dengan harga transparan dan pelayanan terpercaya.</h3>
+                    <p>
+                        GY-Techautocar hadir untuk membantu Anda memilih mobil yang sesuai kebutuhan keluarga, bisnis,
+                        maupun gaya hidup. Dari mobil keluarga, city car, hingga kendaraan premium, semua tersedia dengan
+                        proses yang cepat dan mudah.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#katalog" class="hero-btn primary" onclick="scrollToSection('katalog'); return false;">Lihat Katalog</a>
+                        <a href="https://wa.me/6282219155878" class="hero-btn secondary" target="_blank" rel="noopener noreferrer">Hubungi Kami</a>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <strong>500+</strong>
+                        <span>Pelanggan Puas</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>100%</strong>
+                        <span>Mobil Original</span>
+                    </div>
+                    <div class="stat-box">
+                        <strong>24/7</strong>
+                        <span>Response WhatsApp</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="katalog" class="section">
             <h2 class="section-title">📋 Katalog Mobil</h2>
@@ -75,7 +109,6 @@
                     <div class="mobil-action">
                         <button class="btn-detail"
                             data-id="{{ $m->seri }}"
-                            data-seri="{{ $m->seri }}"
                             data-nama="{{ $m->nama_mobil }}"
                             data-merek="{{ $m->merek }}"
                             data-harga="Rp {{ number_format($m->harga, 0, ',', '.') }}"
@@ -85,9 +118,7 @@
                             data-cc="{{ $m->cc ? $m->cc . ' cc' : '-' }}"
                             data-warna="{{ $m->warna ?? '-' }}"
                             data-tahun="{{ $m->tahun ?? '-' }}"
-                            data-penggerak="{{ $m->penggerak ?? '-' }}"
-                            data-stok="{{ $m->stok }}"
-                            data-foto="{{ $m->foto ? Storage::url($m->foto) : '' }}">
+                            data-penggerak="{{ $m->penggerak ?? '-' }}">
                             📋 Detail
                         </button>
 
@@ -131,11 +162,13 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <h4>📍 Lokasi</h4>
-                        <p>Jl. Merdeka No.123, Jakarta, Indonesia</p>
+                        <p>Jl. Kandangsapi No. 156 B, Citeureup - Cimahi</p>
                     </div>
                     <div class="contact-item">
                         <h4>📞 Telepon</h4>
-                        <p>+62 851 9116 3819</p>
+                        <a href="https://wa.me/6282219155878" target="_blank" rel="noopener noreferrer" style="color: #f5f5dc; text-decoration: none;">
+                            <p>0822 1915 5878</p>
+                        </a>
                     </div>
                     <div class="contact-item">
                         <h4>📧 Email</h4>
@@ -203,9 +236,7 @@
     <div id="detailModal" class="modal">
         <div class="modal-content">
             <span class="close-detail">&times;</span>
-            <img id="detailFoto" class="detail-photo" src="" alt="Foto kendaraan">
             <h2 id="detailNama"></h2>
-            <p><strong>Seri:</strong> <span id="detailSeri">-</span></p>
             <p><strong>Merek:</strong> <span id="detailMerek"></span></p>
             <p><strong>Harga:</strong> <span id="detailHarga"></span></p>
             <p><strong>Mesin:</strong> <span id="detailMesin">-</span></p>
@@ -215,7 +246,6 @@
             <p><strong>Warna:</strong> <span id="detailWarna">-</span></p>
             <p><strong>Tahun:</strong> <span id="detailTahun">-</span></p>
             <p><strong>Penggerak:</strong> <span id="detailPenggerak">-</span></p>
-            <p><strong>Stok:</strong> <span id="detailStok">-</span></p>
         </div>
     </div>
 
@@ -225,9 +255,9 @@
                 <h3> GY-Techautocar</h3>
                 <p>Penyedia kendaraan premium terpercaya.</p>
                 <div class="social-links">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/6285191163819" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/gytechautocar" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/gytechautocar" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6282219155878" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-section">
@@ -241,15 +271,14 @@
             <div class="footer-section">
                 <h4>Hubungi Kami</h4>
                 <ul>
-                    <li>📞 +62 851 9116 3819</li>
-                    <li>📧 falgi516@gmail.com</li>
-                    <li>📍 Jakarta, Indonesia</li>
+                    <li>📞 0822 1915 5878</li>
+                    <li>📧 info@gy-techautocar.com</li>
+                    <li>📍 Jl. Kandangsapi No. 156 B, Citeureup - Cimahi</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy;  2025 GY-Techautocar. All rights reserved.</p>
-            <p>@.Developing by fahmi al ghifari</p>
+            <p>&copy; 2025 GY-Techautocar. All rights reserved.</p>
         </div>
     </footer>
 

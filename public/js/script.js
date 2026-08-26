@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ================= KONFIGURASI WHATSAPP ================= */
     // Ganti dengan nomor WhatsApp Anda (format internasional tanpa +)
-    const WHATSAPP_NUMBER = '6285191163819'; // Contoh: 6281234567890
+    const WHATSAPP_NUMBER = '6281220145700';
 
     /* ================= NAVIGATION ================= */
     window.scrollToSection = function(sectionId) {
