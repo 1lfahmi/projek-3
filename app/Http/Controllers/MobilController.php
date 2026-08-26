@@ -91,13 +91,20 @@ class MobilController extends Controller
         $mobil = Mobil::findOrFail($id);
         $data = $request->all();
 
-        // Logika Update Foto
+        // Logika Update Foto: mengganti semua foto lama dengan foto baru yang dipilih
         if ($request->hasFile('foto')) {
             $disk = env('FILESYSTEM_DISK', 'local');
+
+            if (is_array($mobil->foto) && !empty($mobil->foto)) {
+                Storage::disk($disk)->delete($mobil->foto);
+            }
+
             $newPhotos = collect($request->file('foto'))
+                ->take(5)
                 ->map(fn ($file) => $file->store('mobil', $disk))
                 ->all();
-            $data['foto'] = array_merge($mobil->foto, $newPhotos);
+
+            $data['foto'] = $newPhotos;
         }
 
         $mobil->update($data);

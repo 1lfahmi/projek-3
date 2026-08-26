@@ -129,11 +129,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 rounded-4 border border-secondary" style="background: rgba(255,255,255,0.05);">
-                                <small class="text-info fw-bold d-block mb-1">KESEHATAN SERVER</small>
-                                <p class="text-white fw-bold m-0" style="font-size: 1.1rem;">
-                                    <i class="fas fa-server text-info me-2"></i> 
-                                    Latensi: 24ms (Sangat Cepat)
-                                </p>
+                                <small class="text-info fw-bold d-block mb-2">BULAN PALING RAMAI</small>
+                                <div class="d-flex align-items-center justify-content-between gap-3">
+                                    <div style="width: 130px; height: 130px; position: relative;">
+                                        <canvas id="topVisitorChart" width="130" height="130"></canvas>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="text-white fw-bold" style="font-size: 1.1rem;">{{ $topVisitorMonthLabel }}</div>
+                                        <div class="text-info fw-bold mt-2">{{ number_format($topVisitorMonthValue) }} pengunjung</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,9 +152,39 @@
         const labels = @json($chartLabels);
         const purchases = @json($purchaseChart);
         const visitors = @json($visitorChart);
+        const monthVisitorLabels = @json($yearlyMonthVisitorData->pluck('label')->values());
+        const monthVisitorData = @json($yearlyMonthVisitorData->pluck('count')->values());
         const chartOptions = { responsive: true, plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,.06)' } }, y: { beginAtZero: true, ticks: { color: '#94a3b8', precision: 0 }, grid: { color: 'rgba(255,255,255,.06)' } } } };
         const activityChart = new Chart(document.getElementById('activityChart'), { type: 'line', data: { labels, datasets: [{ label: 'Pengunjung', data: visitors, borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,.15)', fill: true, tension: .35 }, { label: 'Pembelian', data: purchases, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,.1)', fill: true, tension: .35 }] }, options: chartOptions });
         const purchaseChart = new Chart(document.getElementById('purchaseChart'), { type: 'bar', data: { labels, datasets: [{ label: 'Transaksi', data: purchases, backgroundColor: '#38bdf8', borderRadius: 5 }] }, options: chartOptions });
+
+        const topVisitorChart = new Chart(document.getElementById('topVisitorChart'), {
+            type: 'doughnut',
+            data: {
+                labels: monthVisitorLabels,
+                datasets: [{
+                    data: monthVisitorData,
+                    backgroundColor: ['#22d3ee', '#38bdf8', '#2dd4bf', '#facc15', '#a78bfa', '#fb7185', '#f59e0b', '#34d399', '#60a5fa', '#f472b6', '#a3e635', '#f87171'],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '58%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed} pengunjung`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
 
     <style>

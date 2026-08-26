@@ -80,27 +80,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editFotoInput) {
         editFotoInput.addEventListener('change', function () {
             const files = Array.from(this.files || []);
-            if (editFotoFiles.length + files.length > 5) {
-                alert('Maksimal 5 foto baru yang dapat ditambahkan.');
-            } else {
-                editFotoFiles = editFotoFiles.concat(files);
-            }
-
-            const allFiles = editFotoFiles;
-            if (!allFiles.length) {
-                editFotoPreview.src = '';
-                editFotoPreview.style.display = 'none';
-                editFotoPlaceholder.style.display = 'flex';
+            if (files.length === 0) {
                 return;
             }
 
+            if (files.length > 5) {
+                alert('Maksimal 5 gambar yang dapat dipilih untuk mengganti foto.');
+                editFotoInput.value = '';
+                editFotoFiles = [];
+                editFotoUrls.forEach(url => URL.revokeObjectURL(url));
+                editFotoUrls = [];
+                window.editNewPhotoUrls = [];
+                updateEditGallery();
+                return;
+            }
+
+            editFotoFiles = files;
             editFotoUrls.forEach(url => URL.revokeObjectURL(url));
-            editFotoUrls = allFiles.map(file => URL.createObjectURL(file));
+            editFotoUrls = editFotoFiles.map(file => URL.createObjectURL(file));
+
             const transfer = new DataTransfer();
-            allFiles.forEach(file => transfer.items.add(file));
+            editFotoFiles.forEach(file => transfer.items.add(file));
             editFotoInput.files = transfer.files;
+
             window.editNewPhotoUrls = editFotoUrls;
-            window.editPhotoIndex = window.editExistingPhotos.length;
+            window.editPhotoIndex = 0;
             updateEditGallery();
         });
     }

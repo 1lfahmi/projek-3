@@ -18,7 +18,7 @@ return new class extends Migration
         $table->string('merek');
         $table->integer('harga');
         $table->integer('stok');
-        $table->string('foto')->nullable();
+        $table->longText('foto')->nullable();
         $table->timestamps();
     });
 }

@@ -166,9 +166,9 @@
                                     <button type="button" class="gallery-arrow gallery-arrow-next" id="editFotoNext" aria-label="Foto berikutnya"><i class="fas fa-chevron-right"></i></button>
                                 </div>
                                 <div class="gallery-dots" id="editFotoDots"></div>
-                                <label class="form-label">Ganti Foto (Opsional)</label>
+                                <label class="form-label">Ganti Gambar</label>
                                 <input type="file" name="foto[]" id="editFotoInput" class="form-control" accept="image/*" multiple>
-                                <small class="text-muted d-block mt-2">Pilih 1 sampai 5 foto baru. Jika tidak diubah, foto lama tetap dipakai.</small>
+                                <small class="text-muted d-block mt-2">Pilih 1 sampai 5 gambar baru. Foto lama akan diganti seluruhnya.</small>
                                 <div class="preview-summary mt-4">
                                     <div class="fw-bold mb-2" id="editPreviewNama">Nama kendaraan</div>
                                     <div><span id="editPreviewMerek">Merek</span><span id="editPreviewTahun">Tahun</span></div>

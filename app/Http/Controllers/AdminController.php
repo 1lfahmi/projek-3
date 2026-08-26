@@ -87,6 +87,23 @@ class AdminController extends Controller
         $purchaseThisMonth = Pembelian::whereBetween('created_at', [$selectedPeriodStart, $selectedPeriodEnd])->count();
         $purchasePreviousMonth = Pembelian::whereBetween('created_at', [$previousPeriodStart, $previousPeriodEnd])->count();
 
+        $yearlyMonthVisitorData = collect(range(1, 12))->map(function ($month) use ($selectedYear) {
+            $start = Carbon::create($selectedYear, $month, 1, 0, 0, 0);
+            $end = $start->copy()->endOfMonth();
+
+            return [
+                'month' => $month,
+                'label' => $start->locale('id')->translatedFormat('M'),
+                'count' => VisitorLog::whereBetween('visited_on', [$start->toDateString(), $end->toDateString()])->count(),
+            ];
+        })->values();
+
+        $topVisitorMonth = $yearlyMonthVisitorData->sortByDesc('count')->first();
+        $topVisitorMonthLabel = $topVisitorMonth && ($topVisitorMonth['count'] ?? 0) > 0
+            ? $topVisitorMonth['label'] . ' ' . $selectedYear
+            : 'Belum ada data';
+        $topVisitorMonthValue = $topVisitorMonth['count'] ?? 0;
+
         $periodLabel = $period === 'yearly'
             ? 'Tahun ' . $selectedYear
             : Carbon::create($selectedYear, $selectedMonth, 1)->locale('id')->translatedFormat('F Y');
@@ -107,7 +124,10 @@ class AdminController extends Controller
             'selectedYear',
             'selectedMonth',
             'period',
-            'periodLabel'
+            'periodLabel',
+            'yearlyMonthVisitorData',
+            'topVisitorMonthLabel',
+            'topVisitorMonthValue'
         ));
     }
 }
