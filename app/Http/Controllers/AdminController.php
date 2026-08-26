@@ -17,32 +17,97 @@ class AdminController extends Controller
         return view('admin.mobil.index', compact('mobils'));
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        // Mengambil jumlah data real-time dari database
         $now = Carbon::now();
-        $startMonth = $now->copy()->startOfMonth();
-        $previousMonth = $startMonth->copy()->subMonth();
+        $period = $request->input('period', 'monthly');
+        $selectedYear = (int) $request->input('year', $now->year);
+        $selectedMonth = (int) $request->input('month', $now->month);
+
         $totalMobil = Mobil::where('status', '!=', 'sold')->count();
-        $totalPesanan = Pembelian::count(); 
+        $totalPesanan = Pembelian::count();
         $totalUser = User::count();
-        $visitorThisMonth = VisitorLog::whereBetween('visited_on', [$startMonth->toDateString(), $now->toDateString()])->count();
-        $visitorPreviousMonth = VisitorLog::whereBetween('visited_on', [$previousMonth->toDateString(), $startMonth->copy()->subDay()->toDateString()])->count();
-        $purchaseThisMonth = Pembelian::whereBetween('created_at', [$startMonth, $now])->count();
-        $purchasePreviousMonth = Pembelian::whereBetween('created_at', [$previousMonth, $startMonth->copy()->subSecond()])->count();
 
-        $months = collect(range(11, 0))->map(function ($monthsAgo) use ($now) {
-            $date = $now->copy()->subMonths($monthsAgo);
-            return ['label' => $date->format('M Y'), 'start' => $date->copy()->startOfMonth(), 'end' => $date->copy()->endOfMonth()];
+        $availableYears = collect()
+            ->merge(VisitorLog::selectRaw('YEAR(visited_on) as year')->pluck('year'))
+            ->merge(Pembelian::selectRaw('YEAR(created_at) as year')->pluck('year'))
+            ->merge([$now->year])
+            ->map(fn ($year) => (int) $year)
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+
+        $years = $availableYears->isNotEmpty() ? $availableYears : collect([$now->year]);
+        if (! $years->contains($selectedYear)) {
+            $selectedYear = $years->last();
+        }
+
+        $selectedMonth = in_array($selectedMonth, range(1, 12), true) ? $selectedMonth : $now->month;
+
+        $months = collect(range(1, 12))->map(function ($month) use ($selectedYear) {
+            return [
+                'value' => $month,
+                'label' => Carbon::create($selectedYear, $month, 1)->locale('id')->translatedFormat('F'),
+            ];
         });
-        $purchaseChart = $months->map(fn ($month) => Pembelian::whereBetween('created_at', [$month['start'], $month['end']])->count())->values();
-        $visitorChart = $months->map(fn ($month) => VisitorLog::whereBetween('visited_on', [$month['start']->toDateString(), $month['end']->toDateString()])->count())->values();
-        $chartLabels = $months->pluck('label')->values();
-        $years = collect(range(5, 0))->map(fn ($yearsAgo) => $now->copy()->subYears($yearsAgo)->year);
-        $yearlyPurchaseChart = $years->map(fn ($year) => Pembelian::whereYear('created_at', $year)->count())->values();
-        $yearlyVisitorChart = $years->map(fn ($year) => VisitorLog::whereYear('visited_on', $year)->count())->values();
 
-        // Mengirimkan data ke view admin.dashboard
-        return view('admin.dashboard', compact('totalMobil', 'totalPesanan', 'totalUser', 'visitorThisMonth', 'visitorPreviousMonth', 'purchaseThisMonth', 'purchasePreviousMonth', 'chartLabels', 'purchaseChart', 'visitorChart', 'years', 'yearlyPurchaseChart', 'yearlyVisitorChart'));
+        if ($period === 'yearly') {
+            $chartLabels = $years->map(fn ($year) => (string) $year)->values();
+            $purchaseChart = $years->map(fn ($year) => Pembelian::whereYear('created_at', $year)->count())->values();
+            $visitorChart = $years->map(fn ($year) => VisitorLog::whereYear('visited_on', $year)->count())->values();
+
+            $selectedPeriodStart = Carbon::create($selectedYear, 1, 1, 0, 0, 0);
+            $selectedPeriodEnd = Carbon::create($selectedYear, 12, 31, 23, 59, 59);
+            $previousPeriodStart = $selectedPeriodStart->copy()->subYear();
+            $previousPeriodEnd = $selectedPeriodEnd->copy()->subYear();
+        } else {
+            $chartLabels = $months->map(fn ($month) => $month['label'])->values();
+            $purchaseChart = $months->map(function ($month) use ($selectedYear) {
+                $start = Carbon::create($selectedYear, $month['value'], 1, 0, 0, 0);
+                $end = $start->copy()->endOfMonth();
+
+                return Pembelian::whereBetween('created_at', [$start, $end])->count();
+            })->values();
+            $visitorChart = $months->map(function ($month) use ($selectedYear) {
+                $start = Carbon::create($selectedYear, $month['value'], 1, 0, 0, 0);
+                $end = $start->copy()->endOfMonth();
+
+                return VisitorLog::whereBetween('visited_on', [$start->toDateString(), $end->toDateString()])->count();
+            })->values();
+
+            $selectedPeriodStart = Carbon::create($selectedYear, $selectedMonth, 1, 0, 0, 0);
+            $selectedPeriodEnd = $selectedPeriodStart->copy()->endOfMonth();
+            $previousPeriodStart = $selectedPeriodStart->copy()->subMonth()->startOfMonth();
+            $previousPeriodEnd = $selectedPeriodStart->copy()->subMonth()->endOfMonth();
+        }
+
+        $visitorThisMonth = VisitorLog::whereBetween('visited_on', [$selectedPeriodStart->toDateString(), $selectedPeriodEnd->toDateString()])->count();
+        $visitorPreviousMonth = VisitorLog::whereBetween('visited_on', [$previousPeriodStart->toDateString(), $previousPeriodEnd->toDateString()])->count();
+        $purchaseThisMonth = Pembelian::whereBetween('created_at', [$selectedPeriodStart, $selectedPeriodEnd])->count();
+        $purchasePreviousMonth = Pembelian::whereBetween('created_at', [$previousPeriodStart, $previousPeriodEnd])->count();
+
+        $periodLabel = $period === 'yearly'
+            ? 'Tahun ' . $selectedYear
+            : Carbon::create($selectedYear, $selectedMonth, 1)->locale('id')->translatedFormat('F Y');
+
+        return view('admin.dashboard', compact(
+            'totalMobil',
+            'totalPesanan',
+            'totalUser',
+            'visitorThisMonth',
+            'visitorPreviousMonth',
+            'purchaseThisMonth',
+            'purchasePreviousMonth',
+            'chartLabels',
+            'purchaseChart',
+            'visitorChart',
+            'years',
+            'months',
+            'selectedYear',
+            'selectedMonth',
+            'period',
+            'periodLabel'
+        ));
     }
 }

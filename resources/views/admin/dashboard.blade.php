@@ -61,7 +61,49 @@
         </div>
 
         <div class="row mt-4 g-4">
-            <div class="col-lg-8"><div class="p-4 rounded-4" style="background:#1e293b;border:1px solid rgba(255,255,255,.15);"><div class="d-flex justify-content-between align-items-center mb-3"><h4 class="text-white fw-bold m-0"><i class="fas fa-chart-line text-info me-2"></i>Pengunjung & Pembelian</h4><div class="btn-group btn-group-sm"><button class="btn btn-info" id="monthlyBtn">Bulanan</button><button class="btn btn-outline-light" id="yearlyBtn">Tahunan</button></div></div><canvas id="activityChart" height="110"></canvas></div></div>
+            <div class="col-12">
+                <div class="p-4 rounded-4" style="background:#1e293b;border:1px solid rgba(255,255,255,.15);">
+                    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+                        <div>
+                            <h4 class="text-white fw-bold m-0">
+                                <i class="fas fa-calendar-days text-info me-2"></i>Filter Periode Data
+                            </h4>
+                            <small class="text-slate-300">Pilih periode audit secara terstruktur untuk melihat aktivitas per bulan atau per tahun.</small>
+                        </div>
+                        <div class="text-info fw-bold">{{ $periodLabel }}</div>
+                    </div>
+
+                    <form method="GET" action="{{ route('admin.dashboard') }}" class="row g-3 mt-3 align-items-end">
+                        <div class="col-md-6">
+                            <label class="form-label text-slate-300 small mb-2">Jenis Periode</label>
+                            <select name="period" class="form-select form-select-lg rounded-3 border-0 shadow-none" style="background:#0f172a;color:#e2e8f0;">
+                                <option value="monthly" {{ $period === 'monthly' ? 'selected' : '' }}>Bulanan</option>
+                                <option value="yearly" {{ $period === 'yearly' ? 'selected' : '' }}>Tahunan</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-slate-300 small mb-2">Tahun</label>
+                            <select name="year" class="form-select form-select-lg rounded-3 border-0 shadow-none" style="background:#0f172a;color:#e2e8f0;">
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}" {{ (int) $selectedYear === (int) $year ? 'selected' : '' }}>{{ $year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-info px-4 fw-bold rounded-3">
+                                <i class="fas fa-filter me-2"></i>Terapkan
+                            </button>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light px-4 rounded-3">
+                                Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-8"><div class="p-4 rounded-4" style="background:#1e293b;border:1px solid rgba(255,255,255,.15);"><div class="d-flex justify-content-between align-items-center mb-3"><h4 class="text-white fw-bold m-0"><i class="fas fa-chart-line text-info me-2"></i>Pengunjung & Pembelian</h4><span class="badge bg-info text-dark fw-bold">{{ $period === 'yearly' ? 'Tahunan' : 'Bulanan' }}</span></div><canvas id="activityChart" height="110"></canvas></div></div>
             <div class="col-lg-4"><div class="p-4 rounded-4 h-100" style="background:#1e293b;border:1px solid rgba(255,255,255,.15);"><h4 class="text-white fw-bold mb-3"><i class="fas fa-chart-column text-warning me-2"></i>Tren Pembelian</h4><canvas id="purchaseChart" height="220"></canvas></div></div>
         </div>
 
@@ -105,15 +147,9 @@
         const labels = @json($chartLabels);
         const purchases = @json($purchaseChart);
         const visitors = @json($visitorChart);
-        const yearlyLabels = @json($years);
-        const yearlyPurchases = @json($yearlyPurchaseChart);
-        const yearlyVisitors = @json($yearlyVisitorChart);
         const chartOptions = { responsive: true, plugins: { legend: { labels: { color: '#e2e8f0' } } }, scales: { x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,.06)' } }, y: { beginAtZero: true, ticks: { color: '#94a3b8', precision: 0 }, grid: { color: 'rgba(255,255,255,.06)' } } } };
         const activityChart = new Chart(document.getElementById('activityChart'), { type: 'line', data: { labels, datasets: [{ label: 'Pengunjung', data: visitors, borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,.15)', fill: true, tension: .35 }, { label: 'Pembelian', data: purchases, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,.1)', fill: true, tension: .35 }] }, options: chartOptions });
         const purchaseChart = new Chart(document.getElementById('purchaseChart'), { type: 'bar', data: { labels, datasets: [{ label: 'Transaksi', data: purchases, backgroundColor: '#38bdf8', borderRadius: 5 }] }, options: chartOptions });
-        function setPeriod(period) { const yearly = period === 'yearly'; activityChart.data.labels = yearly ? yearlyLabels : labels; activityChart.data.datasets[0].data = yearly ? yearlyVisitors : visitors; activityChart.data.datasets[1].data = yearly ? yearlyPurchases : purchases; purchaseChart.data.labels = yearly ? yearlyLabels : labels; purchaseChart.data.datasets[0].data = yearly ? yearlyPurchases : purchases; activityChart.update(); purchaseChart.update(); document.getElementById('monthlyBtn').className = yearly ? 'btn btn-outline-light' : 'btn btn-info'; document.getElementById('yearlyBtn').className = yearly ? 'btn btn-info' : 'btn btn-outline-light'; }
-        document.getElementById('monthlyBtn').addEventListener('click', () => setPeriod('monthly'));
-        document.getElementById('yearlyBtn').addEventListener('click', () => setPeriod('yearly'));
     </script>
 
     <style>

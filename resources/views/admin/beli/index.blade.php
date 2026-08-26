@@ -3,7 +3,7 @@
 @section('main-content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -1px;">
-        <i class="fas fa-file-invoice-dollar text-info me-2"></i> Data Penjualan
+        <i class="fas fa-users text-info me-2"></i> Data Pelanggan
     </h2>
 </div>
 

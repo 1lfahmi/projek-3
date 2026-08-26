@@ -267,7 +267,7 @@
                 <i class="fas fa-car-rear me-2"></i> Data Kendaraan
             </a>
             <a href="{{ route('admin.pembelian') }}" class="{{ request()->is('admin/pembelian*') ? 'active' : '' }}">
-                <i class="fas fa-chart-line me-2"></i> Penjualan
+                <i class="fas fa-users me-2"></i> Data Pelanggan
             </a>
             <a href="{{ route('manage-admin.index') }}" class="{{ request()->is('manage-admin*') ? 'active' : '' }}">
                 <i class="fas fa-user-gear me-2"></i> Staff Akses

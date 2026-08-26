@@ -178,7 +178,15 @@ if (userForm) {
         .then(res => res.json())
         .then(data => {
             alert(data.message);
-            window.open(data.target_url, "_blank"); // buka WA dari Laravel
+			const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+			if (isMobile && data.whatsapp_app_url) {
+				window.location.href = data.whatsapp_app_url;
+				window.setTimeout(() => {
+					window.location.href = data.target_url;
+				}, 1800);
+			} else {
+				window.open(data.target_url, "_blank");
+			}
             userForm.reset();
             closeModal(formModal);
         })
