@@ -9,6 +9,20 @@ class Pembelian extends Model
 {
     use HasFactory;
 
+    public function getWhatsappNumberAttribute(): string
+    {
+        $number = preg_replace('/\D+/', '', (string) $this->no_telepon);
+
+        if (str_starts_with($number, '0')) {
+            return '62' . substr($number, 1);
+        }
+
+        if (str_starts_with($number, '8')) {
+            return '62' . $number;
+        }
+
+        return $number;
+    }
 
     protected $fillable = [
         'nama',

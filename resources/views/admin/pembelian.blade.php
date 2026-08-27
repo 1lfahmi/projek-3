@@ -50,7 +50,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="https://wa.me/{{ $item->no_telepon }}" target="_blank" 
+                                     <a href="https://wa.me/{{ $item->whatsapp_number }}" target="_blank" rel="noopener noreferrer"
                                style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid #bbf7d0;">
                                 <i class="fab fa-whatsapp me-2"></i>{{ $item->no_telepon }}
                             </a>
