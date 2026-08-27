@@ -276,11 +276,30 @@
         tambahForm.querySelector('[name="tahun"]').addEventListener('input', e => document.getElementById('previewTahun').textContent = e.target.value || 'Tahun');
         tambahForm.querySelector('[name="harga_display"]').addEventListener('input', e => document.getElementById('previewHarga').textContent = e.target.value ? `Rp ${e.target.value}` : 'Rp 0');
     }
+    function normalizePriceValue(value) {
+        return String(value ?? '').replace(/[^\d]/g, '');
+    }
+
+    function formatPriceDisplay(value) {
+        const digits = normalizePriceValue(value);
+        if (!digits) return '';
+        return new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(Number(digits));
+    }
+
+    function formatPriceLabel(value) {
+        const digits = normalizePriceValue(value);
+        if (!digits) return 'Rp 0';
+        return `Rp ${formatPriceDisplay(digits)}`;
+    }
+
     document.querySelectorAll('.harga-display').forEach(input => {
         input.addEventListener('input', function () {
-            const digits = this.value.replace(/\D/g, '');
-            this.value = digits ? new Intl.NumberFormat('id-ID').format(Number(digits)) : '';
+            const digits = normalizePriceValue(this.value);
+            this.value = digits ? formatPriceDisplay(digits) : '';
             this.closest('form').querySelector('.harga-value').value = digits;
+
+            const preview = this.closest('form').querySelector('#previewHarga') || this.closest('form').querySelector('#editPreviewHarga');
+            if (preview) preview.textContent = formatPriceLabel(digits);
         });
     });
 
@@ -288,7 +307,7 @@
         form.addEventListener('submit', function () {
             const display = form.querySelector('.harga-display');
             const value = form.querySelector('.harga-value');
-            if (display && value) value.value = display.value.replace(/\D/g, '');
+            if (display && value) value.value = normalizePriceValue(display.value);
         });
     });
 </script>

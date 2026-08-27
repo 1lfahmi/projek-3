@@ -1,3 +1,26 @@
+function normalizePriceValue(value) {
+    const digits = String(value ?? '').replace(/[^\d]/g, '');
+    return digits;
+}
+
+function formatPriceDisplay(value) {
+    const digits = normalizePriceValue(value);
+    if (!digits) {
+        return '';
+    }
+
+    return new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(Number(digits));
+}
+
+function formatPriceLabel(value) {
+    const digits = normalizePriceValue(value);
+    if (!digits) {
+        return 'Rp 0';
+    }
+
+    return `Rp ${formatPriceDisplay(digits)}`;
+}
+
 /**
  * Fungsi untuk mengambil data mobil dan menampilkannya di Modal Edit
  * @param {number} id - ID Mobil dari database
@@ -21,13 +44,13 @@ function editMobil(id) {
             document.getElementById('edit_bahan_bakar').value = data.bahan_bakar || '';
             document.getElementById('edit_warna').value = data.warna || '';
             document.getElementById('edit_penggerak').value = data.penggerak || '';
-            document.getElementById('edit_harga').value = new Intl.NumberFormat('id-ID').format(data.harga);
-            document.getElementById('edit_harga_value').value = data.harga;
+            document.getElementById('edit_harga').value = formatPriceDisplay(data.harga || 0);
+            document.getElementById('edit_harga_value').value = normalizePriceValue(data.harga || 0);
             document.getElementById('edit_stok').value = data.stok;
             document.getElementById('editPreviewNama').textContent = data.nama_mobil || 'Nama kendaraan';
             document.getElementById('editPreviewMerek').textContent = data.merek || 'Merek';
             document.getElementById('editPreviewTahun').textContent = data.tahun || 'Tahun';
-            document.getElementById('editPreviewHarga').textContent = data.harga ? `Rp ${new Intl.NumberFormat('id-ID').format(data.harga)}` : 'Rp 0';
+            document.getElementById('editPreviewHarga').textContent = formatPriceLabel(data.harga || 0);
 
             const editForm = document.getElementById('formEditMobil');
             editForm.action = `/mobil/${id}`;
@@ -142,17 +165,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editForm) {
         editForm.querySelectorAll('.harga-display').forEach(input => {
             input.addEventListener('input', function () {
-                const digits = this.value.replace(/\D/g, '');
-                this.value = digits ? new Intl.NumberFormat('id-ID').format(Number(digits)) : '';
+                const digits = normalizePriceValue(this.value);
+                this.value = digits ? formatPriceDisplay(digits) : '';
                 const valueField = this.closest('form').querySelector('.harga-value');
                 if (valueField) valueField.value = digits;
+                const preview = this.closest('form').querySelector('#editPreviewHarga');
+                if (preview) preview.textContent = formatPriceLabel(digits);
             });
         });
 
         editForm.addEventListener('submit', function () {
             const display = this.querySelector('.harga-display');
             const value = this.querySelector('.harga-value');
-            if (display && value) value.value = display.value.replace(/\D/g, '');
+            if (display && value) value.value = normalizePriceValue(display.value);
         });
     }
 });
