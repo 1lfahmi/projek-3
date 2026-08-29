@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     /* ================= KONFIGURASI WHATSAPP ================= */
-    // Ganti dengan nomor WhatsApp Anda (format internasional tanpa +)
-    const WHATSAPP_NUMBER = '6281220145700';
+    // Nomor WhatsApp resmi 3R Motor
+    const WHATSAPP_NUMBER = '6281779274231';
 
     /* ================= NAVIGATION ================= */
     window.scrollToSection = function(sectionId) {

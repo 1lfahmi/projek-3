@@ -1190,7 +1190,7 @@ header p {
       
 }
 
-/* GY-Techautocar light theme */
+/* 3R Motor light theme */
 body {
     background: #ffffff !important;
     color: #24120f !important;
@@ -1424,7 +1424,7 @@ body { background: linear-gradient(135deg, #1b1b1b 0%, #2b2b2b 100%) !important;
 .logo-title, .nav-link { color: #f5f5dc; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 .logo-subtitle, header p { color: #d4d4c8; }
 .nav-link:hover { background-color: rgba(255, 255, 255, 0.1); color: #f5f5dc; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); }
-header { background: linear-gradient(rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url('/images/gy-banner.jpg.png') center/cover no-repeat !important; color: #f5f5dc; border-image: linear-gradient(90deg, #ffffff, #ffffff) 1; }
+header { background: linear-gradient(rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url('/images/gy-banner.jpg.jpeg') center/cover no-repeat !important; color: #f5f5dc; border-image: linear-gradient(90deg, #ffffff, #ffffff) 1; }
 header h1, .section-title { color: #f5f5dc; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 .section-title::after { background: #ffffff !important; }
 .mobil-card { background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%) !important; border-color: rgba(255, 255, 255, 0.12); box-shadow: 0 18px 45px rgba(0, 0, 0, 0.30); }

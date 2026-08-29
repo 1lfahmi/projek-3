@@ -25,7 +25,7 @@ class BeliController extends Controller
     $mobil = $request->nama_mobil; 
 
     // Susun Link WA
-    $urlWa = "https://wa.me/6281220145700?text=" . urlencode("Halo, saya $nama ingin membeli unit $mobil");
+    $urlWa = "https://wa.me/6281779274231?text=" . urlencode("Halo, saya $nama ingin membeli unit $mobil");
 
     // Kirim URL ke JavaScript
     return response()->json([

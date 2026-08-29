@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>GY-Techautocar Admin Panel</title>
+    <title>3R Motor Admin Panel</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -256,7 +256,7 @@
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand text-center">
-            GY-TECHautocar
+            3R MOTOR
         </div>
         
         <nav class="mt-2 flex-grow-1">

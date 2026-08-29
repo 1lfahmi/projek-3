@@ -16,7 +16,7 @@
         <div class="nav-container">
             <div class="nav-logo" onclick="scrollToSection('beranda')">
                 <div class="logo-text">
-                    <span class="logo-title">GY-Techautocar</span>
+                    <span class="logo-title">3R Motor</span>
                     <span class="logo-subtitle">Premium Vehicles</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
 
     <div class="container">
         <header>
-            <h1>GY-Techautocar</h1>
+            <h1>3R Motor</h1>
             <p>Pilihan Terbaik Untuk Kendaraan Impian Anda</p>
         </header>
 
@@ -40,16 +40,16 @@
             <h2 class="section-title">Beranda</h2>
             <div class="hero-home">
                 <div class="hero-copy">
-                    <span class="hero-tag">GY-Techautocar</span>
+                    <span class="hero-tag">3R Motor</span>
                     <h3>Temukan kendaraan berkualitas dengan harga transparan dan pelayanan terpercaya.</h3>
                     <p>
-                        GY-Techautocar hadir untuk membantu Anda memilih mobil yang sesuai kebutuhan keluarga, bisnis,
+                        3R Motor hadir untuk membantu Anda memilih mobil yang sesuai kebutuhan keluarga, bisnis,
                         maupun gaya hidup. Dari mobil keluarga, city car, hingga kendaraan premium, semua tersedia dengan
                         proses yang cepat dan mudah.
                     </p>
                     <div class="hero-actions">
                         <a href="#katalog" class="hero-btn primary" onclick="scrollToSection('katalog'); return false;">Lihat Katalog</a>
-                        <a href="https://wa.me/6282219155878" class="hero-btn secondary" target="_blank" rel="noopener noreferrer">Hubungi Kami</a>
+                        <a href="https://wa.me/6281779274231" class="hero-btn secondary" target="_blank" rel="noopener noreferrer">Hubungi Kami</a>
                     </div>
                 </div>
 
@@ -151,8 +151,8 @@
             <h2 class="section-title">ℹ️ Tentang Kami</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>GY-Techautocar - Solusi Kendaraan Premium Anda</h3>
-                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, GY-Techautocar berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
+                    <h3>3R Motor - Solusi Kendaraan Premium Anda</h3>
+                    <p>Dengan pengalaman lebih dari 10 tahun di industri otomotif, 3R Motor berkomitmen memberikan pelayanan terbaik dan kendaraan berkualitas tinggi.</p>
                     <div class="about-features">
                         <div class="feature-item">✓ Mobil Original & Bergaransi</div>
                         <div class="feature-item">✓ Cicilan Ringan Hingga 7 Tahun</div>
@@ -169,17 +169,17 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <h4>📍 Lokasi</h4>
-                        <p>Jl. Kandangsapi No. 156 B, Citeureup - Cimahi</p>
+                        <p>Jl. Encep Kartawiria</p>
                     </div>
                     <div class="contact-item">
                         <h4>📞 Telepon</h4>
-                        <a href="https://wa.me/6282219155878" target="_blank" rel="noopener noreferrer" style="color: #f5f5dc; text-decoration: none;">
-                            <p>0822 1915 5878</p>
+                        <a href="https://wa.me/6281779274231" target="_blank" rel="noopener noreferrer" style="color: #f5f5dc; text-decoration: none;">
+                            <p>0817 7927 4231</p>
                         </a>
                     </div>
                     <div class="contact-item">
                         <h4>📧 Email</h4>
-                        <p>info@gy-techautocar.com</p>
+                        <p>3rmotor@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -259,12 +259,12 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3> GY-Techautocar</h3>
+                <h3>3R Motor</h3>
                 <p>Penyedia kendaraan premium terpercaya.</p>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/gytechautocar" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/gytechautocar" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/6282219155878" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/3rmotor" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/3rmotor" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6281779274231" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-section">
@@ -278,14 +278,14 @@
             <div class="footer-section">
                 <h4>Hubungi Kami</h4>
                 <ul>
-                    <li>📞 0822 1915 5878</li>
-                    <li>📧 info@gy-techautocar.com</li>
-                    <li>📍 Jl. Kandangsapi No. 156 B, Citeureup - Cimahi</li>
+                    <li>📞 0817 7927 4231</li>
+                    <li>📧 3rmotor@gmail.com</li>
+                    <li>📍 Jl. Encep Kartawiria</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 GY-Techautocar. All rights reserved.</p>
+            <p>&copy; 2025 3R Motor. All rights reserved.</p>
         </div>
     </footer>
 

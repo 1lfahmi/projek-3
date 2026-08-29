@@ -57,8 +57,8 @@ class PembelianController extends Controller
                  "Kota: {$pembelian->kota}%0A".
                  "Alamat: {$pembelian->alamat}";
 
-        $urlWa = "https://wa.me/6281220145700?text=$pesan";
-        $urlAplikasiWa = "whatsapp://send?phone=6281220145700&text=$pesan";
+        $urlWa = "https://wa.me/6281779274231?text=$pesan";
+        $urlAplikasiWa = "whatsapp://send?phone=6281779274231&text=$pesan";
 
         return response()->json([
             'message' => 'Pesanan berhasil dikirim!',
